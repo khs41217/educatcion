@@ -1,8 +1,10 @@
 package com.itkey.sam.login.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.itkey.sam.login.service.MemberService;
 import com.itkey.sam.member.dto.MemberDTO;
+import com.itkey.sam.member.service.MemberService;
 
 @Controller
 public class LoginController {
@@ -20,7 +22,7 @@ public class LoginController {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// Dependency Injection With BoardService
-	@Autowired MemberService memberservice;
+	@Autowired MemberService memberService;
 
 	/**
 	 * @param  requestParam 
@@ -30,14 +32,21 @@ public class LoginController {
 	 * @throws Exception
 	 */
 	
-	@RequestMapping(value = "/login")
+	@RequestMapping(value = "login")
 	public String loginPage() throws Exception {
 		return "login";
 	}
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public void loginCheck(MemberDTO dto, Model model, HttpSession session, HttpServletResponse response) throws Exception {
+	
+	@RequestMapping(value = "register")
+	public String memberRegister() throws Exception{
+		return "register";
+	}
+	
+	@RequestMapping(value = "loginMember", method = RequestMethod.POST)
+	public int loginCheck(String user_id, String user_pw, String rememberMe, HttpSession session, HttpServletResponse response) throws Exception {
+		int loginRs = memberService.userLogin(user_id, memberService.checkPw(user_pw));
 		
-		int result = MemberService.userLogin(dto);
+		return loginRs;
 	}
 
 	

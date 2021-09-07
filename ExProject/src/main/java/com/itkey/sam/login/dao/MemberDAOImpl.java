@@ -17,4 +17,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return result;
 	}
 
+	public int checkPw(String user_pw) throws Exception {
+		int result = sqlSession.selectOne("", user_pw);
+		return result;
+	}
+
 }

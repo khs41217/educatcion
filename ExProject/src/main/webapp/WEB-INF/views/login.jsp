@@ -30,15 +30,26 @@
 	function check() {
 		var user_id = $('#id').val();
 		var user_pw = $('#pw').val();
-			console.log(user_id);
-			console.log(user_pw);
-		if(user_id == "" ){
-			alert("아이디를 입력해 주세요");	
-		} else if(user_pw == ""){
-			alert("비밀번호를 입력해 주세요 ");
+		if($('input:checkbox[id="rememberMe"]').is(":checked") == true){
+			var rememberMe='true';
+		}else{
+			var rememberMe='false';
 		}
-		if($('input:checkbox[id="ckb1"]').is(":checked") == true){
-
+		$.ajax({
+			url: 'loginMember',
+			data: {'user_id': user_id, 'user_pw' : user_pw,'rememberMe' : rememberMe},
+		    type: 'post',
+				success: function(loginRs) {
+					if (loginRs == -2 || loginRs== 0) {
+						alert("아이디 또는 비밀번호가 일치하지 않습니다.");
+					}else{
+						// 로그인성공후 페이지 이동처리
+						
+					}
+			}, error: function() {
+				alert('서버오류입니다 관리자에게 문의하세요.');
+			}
+		});
 		}
 	}
 </script>
@@ -54,7 +65,7 @@
 					</div>
 					<span class="login100-form-title p-b-34 p-t-27"> ITKey Edu<br>Project Login
 					</span>					
-					<form action="loginMember.do" method="post">
+					<form action="loginMember" method="post">
 					<div class="wrap-input100 validate-input" data-validate="Enter username">
 						<input class="input100" id="id" type="text" name="username" placeholder="ID">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
@@ -71,7 +82,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<a href="/login.jsp" class="login100-form-btn" onclick="check()">로그인</a> <a href="register.html" class="login100-form-btn">회원가입</a>
+						<a href="" class="login100-form-btn" onclick="check()">로그인</a> <a href="register.html" class="login100-form-btn">회원가입</a>
 					</div>
 					</form>
 				</div>

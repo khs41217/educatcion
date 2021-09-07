@@ -8,5 +8,10 @@
 		FROM sample_writer_tb 
 		WHERE BOARD_WRITER = #{id} and BOARD_WRITER_PW = #{pw}
 	</select>
+	<select id="checkPw" parameterType="String" resultType="MemberDTO">
+		SELECT BOARD_WRITER, BOARD_WRITER_PW
+		FROM sample_writer_tb 
+		WHERE BOARD_WRITER = #{id} and BOARD_WRITER_PW = #{pw}
+	</select>
 
 </mapper>

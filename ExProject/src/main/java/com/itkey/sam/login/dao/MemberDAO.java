@@ -9,5 +9,5 @@ public interface MemberDAO {
 	
 	public int checkMember(MemberDTO eDTO) throws Exception;
 	
-	
+	public int checkPw(String user_pw) throws Exception;
 }

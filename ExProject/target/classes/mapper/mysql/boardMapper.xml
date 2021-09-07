@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sample">
+
+	<select id="selectBoard" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT BOARD_IDX
+			, BOARD_WRITER
+			, BOARD_TITLE
+			, BOARD_CONTENTS
+			, BOARD_VIEW_COUNT
+			, FILE_IDX
+		FROM SAMPLE_BOARD_TB
+		<where>
+			<if test="boardIdx       !=null and boardIdx       !=''"><![CDATA[ AND BOARD_IDX         = #{boardIdx}       ]]></if>
+			<if test="boardWriter    !=null and boardWriter    !=''"><![CDATA[ AND BOARD_WRITER      = #{boardWriter}    ]]></if>
+			<if test="boardTitle     !=null and boardTitle     !=''"><![CDATA[ AND BOARD_TITLE       = #{boardTitle}     ]]></if>
+			<if test="boardContents  !=null and boardContents  !=''"><![CDATA[ AND BOARD_CONTENTS    = #{boardContents}  ]]></if>
+			<if test="boardViewCount !=null and boardViewCount !=''"><![CDATA[ AND BOARD_VIEW_COUNT  = #{boardViewCount} ]]></if>
+			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
+		</where>
+		<if test="row != 0"><![CDATA[ LIMIT #{offset}, #{row} ]]></if>
+	</select>
+
+	<!-- paging 처리용 -->
+	<select id="selectBoardCount" parameterType="BoardDTO" resultType="int">
+		SELECT count(1) FROM SAMPLE_BOARD_TB
+		<where>
+			<if test="boardIdx       !=null and boardIdx       !=''"><![CDATA[ AND BOARD_IDX         = #{boardIdx}       ]]></if>
+			<if test="boardWriter    !=null and boardWriter    !=''"><![CDATA[ AND BOARD_WRITER      = #{boardWriter}    ]]></if>
+			<if test="boardTitle     !=null and boardTitle     !=''"><![CDATA[ AND BOARD_TITLE       = #{boardTitle}     ]]></if>
+			<if test="boardContents  !=null and boardContents  !=''"><![CDATA[ AND BOARD_CONTENTS    = #{boardContents}  ]]></if>
+			<if test="boardViewCount !=null and boardViewCount !=''"><![CDATA[ AND BOARD_VIEW_COUNT  = #{boardViewCount} ]]></if>
+			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
+		</where>
+	</select>
+
+	<!-- INSERT SAMPLE_BOARD_TB -->
+	<insert id="insertBoard" parameterType="BoardDTO">
+		INSERT INTO SAMPLE_BOARD_TB (
+			<trim prefixOverrides=",">
+			<if test="boardIdx       !=null and boardIdx       !=''"> , BOARD_IDX        </if>
+			<if test="boardWriter    !=null and boardWriter    !=''"> , BOARD_WRITER     </if>
+			<if test="boardTitle     !=null and boardTitle     !=''"> , BOARD_TITLE      </if>
+			<if test="boardContents  !=null and boardContents  !=''"> , BOARD_CONTENTS   </if>
+			<if test="boardViewCount !=null and boardViewCount !=''"> , BOARD_VIEW_COUNT </if>
+			<if test="fileIdx        !=null and fileIdx        !=''"> , FILE_IDX         </if>
+			</trim>
+		) VALUES(
+			<trim prefixOverrides=",">
+			<if test="boardIdx       !=null and boardIdx       !=''"> , #{boardIdx}       </if>
+			<if test="boardWriter    !=null and boardWriter    !=''"> , #{boardWriter}    </if>
+			<if test="boardTitle     !=null and boardTitle     !=''"> , #{boardTitle}     </if>
+			<if test="boardContents  !=null and boardContents  !=''"> , #{boardContents}  </if>
+			<if test="boardViewCount !=null and boardViewCount !=''"> , #{boardViewCount} </if>
+			<if test="fileIdx        !=null and fileIdx        !=''"> , #{fileIdx}        </if>
+			</trim>
+		)
+		<selectKey resultType="String" keyProperty="boardIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
+	</insert>
+
+	<!-- UPDATE SAMPLE_BOARD_TB -->
+	<update id="updateBoard" parameterType="BoardDTO">
+		UPDATE SAMPLE_BOARD_TB
+			<trim prefix="SET" prefixOverrides=",">
+			<if test="boardWriter    !=null and boardWriter    !=''"> , BOARD_WRITER     = #{boardWriter}    </if>
+			<if test="boardTitle     !=null and boardTitle     !=''"> , BOARD_TITLE      = #{boardTitle}     </if>
+			<if test="boardContents  !=null and boardContents  !=''"> , BOARD_CONTENTS   = #{boardContents}  </if>
+			<if test="boardViewCount !=null and boardViewCount !=''"> , BOARD_VIEW_COUNT = #{boardViewCount} </if>
+			<if test="fileIdx        !=null and fileIdx        !=''"> , FILE_IDX         = #{fileIdx}       </if>
+			</trim>
+		WHERE BOARD_IDX = #{boardIdx}
+	</update>
+
+	<!-- DELETE SAMPLE_BOARD_TB -->
+	<delete id="deleteBoard" parameterType="String">
+		DELETE FROM SAMPLE_BOARD_TB WHERE BOARD_IDX = #{boardIdx}
+	</delete>
+
+</mapper>

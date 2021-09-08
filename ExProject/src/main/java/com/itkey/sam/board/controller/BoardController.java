@@ -36,7 +36,7 @@ public class BoardController {
 		// Logger
 		logger.debug("Board List Page Response");
 		
-		ModelAndView mv = new ModelAndView("board");
+		ModelAndView mv = new ModelAndView("main");
 		BoardDTO eDTO = new BoardDTO();
 		
 		String row = "0";
@@ -49,6 +49,7 @@ public class BoardController {
 		
 		logger.debug("* [CONTROLLER] Input ◀ (Service) : " + eDTO.toString());
 		List<BoardDTO> oList = boardService.getBoardList(eDTO);
+		
 		mv.addObject("list", oList);
 		return mv;
 		

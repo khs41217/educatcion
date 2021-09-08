@@ -3,15 +3,59 @@
 
 <mapper namespace="member">
 
-	<select id="checkMember" parameterType="map" resultType="MemberDTO">
-		SELECT BOARD_WRITER, BOARD_WRITER_PW
-		FROM sample_writer_tb 
-		WHERE BOARD_WRITER = #{id} and BOARD_WRITER_PW = #{pw}
+	<select id="checkid" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) fROM sample_writer_tb where BOARD_WRITER = #{id}
 	</select>
+	
+	<select id='login' parameterType="String" resultType="String" >
+		SELECT BOARD_WRITER_PW FROM sample_writer_tb where BOARD_WRITER = #{id}
+	</select>
+	
+	<select id="getMember" parameterType="String" resultType="MemberDTO">
+ 		select *from sample_writer_tb where BOARD_WRITER = #{id}
+ 	</select>
+ 	
+ 	<insert id="insertMember" parameterType="com.itkey.sam.member.dto.MemberDTO">
+ 		insert intosample_writer_tb(
+ 		BOARD_WRITER
+ 		, BOARD_WRITER_NAME
+ 		, BOARD_WRITER_PW
+ 		, BOARD_WRITER_PHONE
+ 		, BOARD_WRITER_EMAIL
+ 		, FILE_IDX
+ 		, BOARD_WRITER_JOIN_DATE
+ 		, SALT
+ 		) VALUES(
+ 		#{boardWriter}
+ 		, #{boardWriterName}
+ 		, #{boardWriterPw}
+ 		, #{boardWriterPhone}
+ 		, #{boardWriterEmail}
+ 		, #{fileIdx}
+ 		, #{boardWriterJoinDate}
+ 		, #{salt}
+ 		)
+ 	</insert>
+ 	
+ 	<delete id="deleteMember" parameterType="String">
+ 		DELETE from sample_writer_tb WHERE BOARD_WRITER = #{id}
+ 	</delete>
+ 	
 	<select id="checkPw" parameterType="String" resultType="MemberDTO">
 		SELECT BOARD_WRITER, BOARD_WRITER_PW
 		FROM sample_writer_tb 
 		WHERE BOARD_WRITER = #{id} and BOARD_WRITER_PW = #{pw}
 	</select>
 
+	<!-- 파일 업로드 -->
+	<insert id="insertProfile" parameterType="FileDTO">
+		INSERT INTO sample_file_tb(
+		FILE_ORIGINAL_NAME
+		, FILE_CHANGED_NAME
+		, FILE_PATH
+		) values(
+		#{change_name}, #{old_name}, #{filepath}
+		)
+	<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
+	</insert>
 </mapper>

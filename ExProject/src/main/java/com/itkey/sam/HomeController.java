@@ -42,7 +42,7 @@ public class HomeController  {
 				methodGetStr = methodGetStr.substring(0, methodGetStr.length() - 1);
 			}
 		}
-		return "redirect:login.do" + methodGetStr;
+		return "redirect:login" + methodGetStr;
 	}
 	
 }

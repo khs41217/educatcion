@@ -12,6 +12,7 @@
 	<!-- DTO 및 VO alias 설정 -->
 		<typeAlias alias="BoardDTO" type="com.itkey.sam.board.dto.BoardDTO"/>
 		<typeAlias alias="MemberDTO" type="com.itkey.sam.member.dto.MemberDTO"/>
+		<typeAlias alias="FileDTO" type="com.itkey.sam.member.dto.MemberDTO"/>
 	</typeAliases>
 
 	<!-- src/main/resouces/mapper/mysql 하위 xml 매퍼 설정 (현재 하위 모든 매퍼파일 read하도록 되어있으므로 추가 설정 필요 무) -->

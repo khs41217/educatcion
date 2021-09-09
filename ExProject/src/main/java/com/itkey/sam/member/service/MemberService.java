@@ -1,7 +1,7 @@
 package com.itkey.sam.member.service;
 
+import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
-import com.itkey.scam.file.dto.FileDTO;
 
 public interface MemberService {
 	

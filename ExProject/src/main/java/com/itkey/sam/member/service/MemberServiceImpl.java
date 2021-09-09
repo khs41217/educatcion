@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dao.MemberDAO;
 import com.itkey.sam.member.dto.MemberDTO;
-import com.itkey.scam.file.dto.FileDTO;
 
 
 @Service("memberService")

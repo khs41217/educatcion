@@ -1,4 +1,4 @@
-package com.itkey.scam.file.dto;
+package com.itkey.sam.file.dto;
 
 public class FileDTO {
 	private int fileIdx;

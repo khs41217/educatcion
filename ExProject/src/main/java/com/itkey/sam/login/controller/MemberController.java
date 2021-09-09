@@ -21,9 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.member.service.MemberService;
-import com.itkey.scam.file.dto.FileDTO;
 
 @Controller
 public class MemberController {
@@ -42,7 +42,7 @@ public class MemberController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "membersignup")	//회원가입 액션
+	@RequestMapping(value = "membersignup")	//회원가입 폼
 	public void memberRegisterAction(MemberDTO eDTO, RedirectAttributes red, HttpServletResponse response, Model model, MultipartHttpServletRequest request) throws Exception{
 		MultipartFile multi = request.getFile("file");
 		String oldFileName = multi.getOriginalFilename();
@@ -53,7 +53,7 @@ public class MemberController {
 		fDTO.setFileChangedName(changeFileName);
 		fDTO.setFilePath(path);
 		
-		String safeFile =path + System.currentTimeMillis() + oldFileName;
+		String safeFile = path + System.currentTimeMillis() + oldFileName;
 		try {
 			multi.transferTo(new File(safeFile));
 			//회원가입
@@ -75,7 +75,6 @@ public class MemberController {
 				memberService.insertProfile(fDTO);
 				eDTO.setFileIdx(fDTO.getFileIdx());
 				memberService.insertMember(eDTO);
-				
 			}
 		}catch (IllegalStateException e) {
 			e.printStackTrace();

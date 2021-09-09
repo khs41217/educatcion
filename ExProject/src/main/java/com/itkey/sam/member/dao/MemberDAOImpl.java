@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
-import com.itkey.scam.file.dto.FileDTO;
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {

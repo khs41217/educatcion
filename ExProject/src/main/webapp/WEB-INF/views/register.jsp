@@ -49,74 +49,77 @@
 	/*--이미지 미리보기--*/
 	
 	function checkEmail(){
-	 	//이메일 정규식
-		var useremail = $('#boardWriterEmail').val();	// 이메일
-		var checkemail = $('#checkEmail').val();	//	이메일체크
-
+		var useremail = document.getElementById('boardWriterEmail');	// 이메일
+		var checkemail = document.getElementById('checkEmail');	//	이메일체크
 	}
-
 	/*회원가입 유효성 검사*/
 	function checkAll(){
-	 	//공백 정규식
+	 	//이메일 정규식
 	 	var emailPattern = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	 	//공백 정규식
 	 	var emptyChk = /\s/g;
-		var answer = confirm("작성한 내용대로 가입이 진행됩니다. 계속하시겠습니까?" );
-		var userid = $('#boardWriter').val();	// 아이디
-		var userpw = $('#boardWriterPw').val();	// 비밀번호
-		var username = $('#boardWriterName').val();	// 이름
-		var userphone = $('#boardWriterPhone').val();	// 핸드폰번호
-		var useremail = $('#boardWriterEmail').val();	// 이메일
-		var checkemail = $('#checkEmail').val();	//	이메일체크
-		
-		if(answer== true){
-			location.href = 'login.jsp';
+	 	
+		var id = document.getElementById('boardWriter');	// 아이디
+		var pw = document.getElementById('boardWriterPw');	// 비밀번호
+		var name = document.getElementById('boardWriterName');	// 이름
+		var phone = document.getElementById('boardWriterPhone');	// 핸드폰번호		
+		var email = document.getElementById('boardWriterEmail'); 	// 이메일
+		var checkemail = document.getElementById('checkEmail');	//	이메일체크
 			
-		} if(userid == ""){
-			alert("아이디를 입력해주세요");
-			$('#boardWriter').focus();
-			return false;
-			
-		} else if(userpw == ""){
-			$('#boardWriterPw').focus();
-			alert("비밀번호를 입력해주세요")
-			return false;
-			
-		} else if(username == ""){
-			alert("이름을 입력해주세요")
-			$('#boardWriterName').focus();
-			return false;
-			
-		} else if(userphone == ""){
-			alert("핸드폰 번호를 정확이 입력해주세요")
-			$('#boardWriterPhone').focus();
-			return false;
-			
-		} else if(useremail == ""){
-			alert("이메일을 입력해주세요")
-			$('#boardWriterEmail').focus();
-			return false;
-			
-		} else if(useremail != checkemail){
-			alert("이메일이 일치하지 않습니다")
-			$('#checkEmail').focus();
-			return false;
-			
-		} else if(emailPattern.test(useremail) == false){
-			alert("이메일 형식이 올바르지 않습니다.");
-			$('#boardWriterEmail').focus();
-			return false;
-			
-		} else if(emailPattern.tert(checkemail) == false){
-			alert("이메일 형식이 올바르지 않습니다.")
-			$('#checkEmail').focus();
-			return false;
-		}
 
-		} else if(answer == false){
-			location.href = 'register.jsp';
-			
+			if(id.value == ""){
+				alert("아이디를 입력해주세요");
+				id.focus();
+				return false; 
+			}
+			if(pw.value == ""){
+				alert("비밀번호를 입력해주세요");
+				pw.focus();
+				return false;
+			}
+			if(name.value == ""){
+				alert("이름을 입력해주세요");
+				name.focus();
+				return false; 
+			}
+			if(phone.value == ""){
+				alert("핸드폰 번호를 정확히 입력해주세요")
+				phone.focus();
+				return false;
+			}
+			if(email.value == ""){
+				alert("이메일을 입력해주세요");
+				email.focus();
+				return false;
+			}
+			if(email.value != checkemail.value){
+				alert("이메일이 일치하지 않습니다");
+				checkemail.focus();
+				return false; 
+			}
+			if(emailPattern.test(email.value) == false){
+				alert("이메일 형식이 올바르지 않습니다.");
+				emial.focus();
+				return false;
+			}
+			if(emailPattern.tert(checkemail.value) == false){
+				alert("이메일 형식이 올바르지 않습니다.")
+				checkemail.focus();
+				return false;
+			}	
 	}
 	//*--회원가입 유효성 검사--*//
+	
+	function check(){
+		var result = confirm("이대로 회원가입을 진행 하시겠습니까?");
+		
+		if(result){
+			
+			
+		} else{
+			
+		}
+	}
 
 </script>
 </head>
@@ -186,7 +189,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn" onclick="checkAll()">가입</button> <a href="login" class="login100-form-btn">취소</a>
+						<button type="submit" class="login100-form-btn" onclick="return checkAll()">가입</button> <a href="login" class="login100-form-btn">취소</a>
 					</div>
 				</div>
 			</div>

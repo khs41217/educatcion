@@ -58,6 +58,34 @@ public class BoardServiceImpl implements BoardService {
 		int result = dao.deleteBoard(keyId);
 		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
 		return result;
+	}
+
+	public int countTotalContent() throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.totalContent();
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
+	}
+
+	public int countTotalMember() throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.totalMember();
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
+	}
+
+	public int todayMember() throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.todayMember();
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
+	}
+
+	public int todayContent() throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.todayContent();
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
 	};
 
 }

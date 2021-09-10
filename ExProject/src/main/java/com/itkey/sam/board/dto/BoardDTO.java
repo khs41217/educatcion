@@ -1,5 +1,7 @@
 package com.itkey.sam.board.dto;
 
+import java.util.Date;
+
 /**
  * @author LKM
  */
@@ -13,6 +15,7 @@ public class BoardDTO {
 	private String fileIdx           = null;
 	private String row           	= null;
 	private String offset           = null;
+	private Date boardWriteDate = null;
 	
 	public String getBoardIdx() {
 		return boardIdx;
@@ -61,6 +64,13 @@ public class BoardDTO {
 	}
 	public void setOffset(String offset) {
 		this.offset = offset;
+	}
+	public Date getBoardWriteDate() {
+		return boardWriteDate;
+	}
+	
+	public void setBoardWriteDate(Date boardWriterJoinDate) {
+		this.boardWriteDate = boardWriterJoinDate;
 	}
 	
 }

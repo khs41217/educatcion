@@ -9,14 +9,17 @@
 			, BOARD_TITLE
 			, BOARD_CONTENTS
 			, BOARD_VIEW_COUNT
+			, BOARD_WRITE_DATE 
 			, FILE_IDX
 		FROM SAMPLE_BOARD_TB
+		WHERE DATE_FORMAT(BOARD_WRITE_DATE, "%Y-%m-%d")
 		<where>
 			<if test="boardIdx       !=null and boardIdx       !=''"><![CDATA[ AND BOARD_IDX         = #{boardIdx}       ]]></if>
 			<if test="boardWriter    !=null and boardWriter    !=''"><![CDATA[ AND BOARD_WRITER      = #{boardWriter}    ]]></if>
 			<if test="boardTitle     !=null and boardTitle     !=''"><![CDATA[ AND BOARD_TITLE       = #{boardTitle}     ]]></if>
 			<if test="boardContents  !=null and boardContents  !=''"><![CDATA[ AND BOARD_CONTENTS    = #{boardContents}  ]]></if>
 			<if test="boardViewCount !=null and boardViewCount !=''"><![CDATA[ AND BOARD_VIEW_COUNT  = #{boardViewCount} ]]></if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"><![CDATA[ AND BOARD_WRITE_DATE = #{boardWriteDate}  ]]></if>
 			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
 		</where>
 		<if test="row != 0"><![CDATA[ LIMIT #{offset}, #{row} ]]></if>
@@ -31,6 +34,7 @@
 			<if test="boardTitle     !=null and boardTitle     !=''"><![CDATA[ AND BOARD_TITLE       = #{boardTitle}     ]]></if>
 			<if test="boardContents  !=null and boardContents  !=''"><![CDATA[ AND BOARD_CONTENTS    = #{boardContents}  ]]></if>
 			<if test="boardViewCount !=null and boardViewCount !=''"><![CDATA[ AND BOARD_VIEW_COUNT  = #{boardViewCount} ]]></if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"><![CDATA[ AND BOARD_WRITE_DATE = #{boardWriterDate} ]]></if>
 			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
 		</where>
 	</select>
@@ -44,6 +48,7 @@
 			<if test="boardTitle     !=null and boardTitle     !=''"> , BOARD_TITLE      </if>
 			<if test="boardContents  !=null and boardContents  !=''"> , BOARD_CONTENTS   </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , BOARD_VIEW_COUNT </if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"> , BOARD_WRITE_DATE </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , FILE_IDX         </if>
 			</trim>
 		) VALUES(
@@ -53,6 +58,7 @@
 			<if test="boardTitle     !=null and boardTitle     !=''"> , #{boardTitle}     </if>
 			<if test="boardContents  !=null and boardContents  !=''"> , #{boardContents}  </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , #{boardViewCount} </if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"> , #{boardWriteDate} </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , #{fileIdx}        </if>
 			</trim>
 		)
@@ -76,5 +82,26 @@
 	<delete id="deleteBoard" parameterType="String">
 		DELETE FROM SAMPLE_BOARD_TB WHERE BOARD_IDX = #{boardIdx}
 	</delete>
+	
+	<select id="countTotalContent" resultType="int">
+		SELECT  COUNT(*) FROM SAMPLE_BOARD_TB	
+	</select>
+	
+	<select id="countTotalMember" resultType="int">
+		SELECT  COUNT(*) FROM SAMPLE_WRITER_TB	
+	</select>
 
+	<select id="todayContent" resultType="int">
+		SELECT COUNT(*) FROM SAMPLE_BOARD_TB
+		WHERE
+		DATE_FORMAT(BOARD_WRITE_DATE, "%Y-%m-%d") = CURDATE()
+	</select>
+
+	<select id="todayMember" resultType="int">
+		SELECT COUNT(*) FROM SAMPLE_WRITER_TB
+		WHERE
+		DATE_FORMAT(BOARD_WRITER_JOIN_DATE, "%Y-%m-%d") = CURDATE()
+	</select>
+	
+	
 </mapper>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,32 +37,33 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form">
+					${user_id} 님 어서오세요
 					<div class="row panel-row">
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">총 게시글 수</h5>
-								<h1 class="overview-content">242</h1>
+								<h1 class="overview-content">${info.totalContent}</h1>
 								<i class="far fa-file-alt"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">총 가입자 수</h5>
-								<h1 class="overview-content">242</h1>
+								<h1 class="overview-content">${info.totalMember}</h1>
 								<i class="fas fa-users"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">오늘 게시글 수</h5>
-								<h1 class="overview-content">242</h1>
+								<h1 class="overview-content">${info.todayContent }</h1>
 								<i class="fas fa-file-alt"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">오늘 가입자 수</h5>
-								<h1 class="overview-content">242</h1>
+								<h1 class="overview-content">${info.todayMember }</h1>
 								<i class="fas fa-user-circle"></i>
 							</div>
 						</div>
@@ -96,107 +98,26 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th style="width: 7%;">순번</th>
-										<th style="width: 9%;">작성자</th>
+										<th style="width: 5%;">순번</th>
+										<th style="width: 10%;">작성자</th>
 										<th style="width: 5%;">공개</th>
-										<th>제목</th>
-										<th style="width: 10%;">작성일자</th>
-										<th style="width: 8%;">조회수</th>
-
+										<th style="width: 35%:">제목</th>
+										<th style="width: 40%;">작성일자</th>
+										<th style="width: 5%;">조회수</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock-open"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock-open"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>테스트</td>
-										<td>
-											<i class="fas fa-lock-open"></i>
-										</td>
-										<td>하이하이</td>
-										<td>2019-10-13</td>
-										<td>2</td>
-									</tr>
-
+								<c:forEach items="${list }" var="list" varStatus="status">
+								<tr>
+									<td>${status.count }</td>
+									<td>${list.boardWriter }</td>
+									<td><i class="fas fa-lock"></i></td>
+										<!-- <i class="fas fa-lock-open"></i> -->
+									<td>${list.boardTitle }</td>
+									<td>${list.boardWriteDate }</td>
+									<td>${list.boardViewCount }</td>
+								</tr>
+								</c:forEach>
 								</tbody>
 							</table>
 						</div>

@@ -152,7 +152,6 @@ li.active > a {
 	background: #cb60b3;
 	color: white;
 
-
 }
 
 .table-bordered > tbody > tr > td,
@@ -164,9 +163,6 @@ li.active > a {
 	border: 1px solid #ffb4ee !important;
 }
 
-td {
-	text-align: left;
-}
 .limiter{
 	margin-top: 25px;
 }

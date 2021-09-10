@@ -44,6 +44,12 @@ public interface BoardDAO {
 	 */
 	public int deleteBoard(String keyId) throws Exception;
 	
+	public int totalContent()throws Exception;
 	
+	public int totalMember()throws Exception;
+
+	public int todayContent()throws Exception;
+	
+	public int todayMember()throws Exception;
 	
 }

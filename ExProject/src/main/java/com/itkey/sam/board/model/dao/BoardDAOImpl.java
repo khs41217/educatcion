@@ -52,6 +52,34 @@ public class BoardDAOImpl implements BoardDAO {
 		int result = sqlSession.delete("deleteBoard", keyId);
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;
+	}
+
+	public int totalContent() throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : totalContent");
+		int result = sqlSession.selectOne("countTotalContent");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
+	};
+
+	public int totalMember() throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : totalMember");
+		int result = sqlSession.selectOne("countTotalMember");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
+	};
+
+	public int todayContent() throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : todayContent");
+		int result = sqlSession.selectOne("todayContent");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
+	};
+
+	public int todayMember() throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : todayMember");
+		int result = sqlSession.selectOne("todayMember");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
 	};
 	
 }

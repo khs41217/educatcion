@@ -48,4 +48,13 @@ public interface BoardService {
 	 */
 	public int delBoard(String keyId) throws Exception;
 
+	
+	
+	public int countTotalContent() throws Exception;
+	
+	public int countTotalMember() throws Exception;
+	
+	public int todayMember() throws Exception;
+	
+	public int todayContent() throws Exception;
 }

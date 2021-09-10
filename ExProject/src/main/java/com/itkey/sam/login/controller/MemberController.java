@@ -73,9 +73,15 @@ public class MemberController {
 				out.print(body);
 			} else {
 				memberService.insertProfile(fDTO);
+				
 				eDTO.setFileIdx(fDTO.getFileIdx());
 				memberService.insertMember(eDTO);
+				body =	"<script>"
+						+ "alert('회원가입이 완료 되었습니다.');"
+						+ "location.href='/sam/login';"
+						+ "</script>";
 			}
+			
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
 		}catch (IOException e) {
@@ -110,6 +116,7 @@ public class MemberController {
 			} else if(result == 2) {
 				body = "<script>" + "alert('아이디를 확인해 주세요.');" + "location.href='/sam/login';"+ "</script>";
 				out.print(body);
+				
 			} else {
 				body = "<script>" + "alert('서버오류 입니다 나중에 다시 시도해 주세요');" + "location.href='/sam/login';" + "</script>";
 				out.print(body);

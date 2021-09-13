@@ -69,7 +69,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn" onclick="return check()">로그인</button> <a href="register.html" class="login100-form-btn">회원가입</a>
+						<button type="submit" class="login100-form-btn" onclick="return check()">로그인</button> <a href="register.jsp" class="login100-form-btn">회원가입</a>
 					</div>
 				</div>
 			</div>

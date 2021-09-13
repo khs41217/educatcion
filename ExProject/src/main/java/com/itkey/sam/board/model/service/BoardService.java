@@ -3,6 +3,7 @@ package com.itkey.sam.board.model.service;
 import java.util.List;
 
 import com.itkey.sam.board.dto.BoardDTO;
+import com.itkey.sam.file.dto.FileDTO;
 
 /**
  * Service for SAMPLE_BOARD_TB table : 게시판 정보
@@ -49,12 +50,22 @@ public interface BoardService {
 	public int delBoard(String keyId) throws Exception;
 
 	
-	
+	// 총 게시글 수 조회
 	public int countTotalContent() throws Exception;
 	
+	// 총 회원가입 수 조회
 	public int countTotalMember() throws Exception;
 	
+	// 당일 가입회원 수 조회
 	public int todayMember() throws Exception;
 	
+	// 당일 게시글 수 조회
 	public int todayContent() throws Exception;
+	
+	// 게시판 파일 업로드
+	public int addFile(FileDTO fDTO) throws Exception;
+	
+	public int findFileIdx(FileDTO eDTO) throws Exception;
+	
+	
 }

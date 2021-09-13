@@ -15,6 +15,7 @@ public class BoardDTO {
 	private String fileIdx           = null;
 	private String row           	= null;
 	private String offset           = null;
+	private String boardPublicFl = null; 
 	private Date boardWriteDate = null;
 	
 	public String getBoardIdx() {

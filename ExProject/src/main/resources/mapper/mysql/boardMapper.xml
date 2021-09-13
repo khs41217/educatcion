@@ -48,8 +48,9 @@
 			<if test="boardTitle     !=null and boardTitle     !=''"> , BOARD_TITLE      </if>
 			<if test="boardContents  !=null and boardContents  !=''"> , BOARD_CONTENTS   </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , BOARD_VIEW_COUNT </if>
-			<if test="boardWriteDate !=null and boardWriteDate !=''"> , BOARD_WRITE_DATE </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , FILE_IDX         </if>
+			<if test="boardPublicFl !=null and boardPulbicFl !=''"> , BOARD_PUBLIC_FL</if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"> , BOARD_WRITE_DATE </if>
 			</trim>
 		) VALUES(
 			<trim prefixOverrides=",">
@@ -58,8 +59,9 @@
 			<if test="boardTitle     !=null and boardTitle     !=''"> , #{boardTitle}     </if>
 			<if test="boardContents  !=null and boardContents  !=''"> , #{boardContents}  </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , #{boardViewCount} </if>
-			<if test="boardWriteDate !=null and boardWriteDate !=''"> , #{boardWriteDate} </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , #{fileIdx}        </if>
+			<if test="boardPublicFl !=null and boardPulbicFl !=''"> , #{boardPublicFL</if>
+			<if test="boardWriteDate !=null and boardWriteDate !=''"> , #{boardWriteDate} </if>
 			</trim>
 		)
 		<selectKey resultType="String" keyProperty="boardIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
@@ -102,6 +104,34 @@
 		WHERE
 		DATE_FORMAT(BOARD_WRITER_JOIN_DATE, "%Y-%m-%d") = CURDATE()
 	</select>
+	<!-- 파일 업로드 -->
+	<insert id="insertFile" parameterType="FileDTO">
+		INSERT INTO sample_file_tb(
+		FILE_ORIGINAL_NAME
+		, FILE_CHANGED_NAME
+		, FILE_PATH
+		) values(
+		#{fileOriginalName}, #{fileChangedName}, #{filePath}
+		)
+	<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
+	</insert>
 	
+	<select id="findFileIdx" parameterType="FileDTO" resultType="FileDTO">
+		SELECT
+		*
+		FROM
+		sample_file_tb
+		WHERE
+		FILE_IDX = #{fileIdx}
+	</select>
+	
+	<select id="findBoardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT
+		*
+		FROM
+		sample_board_tb
+		WHERE
+		BOARD_IDX = #{boardIdx}
+	</select>
 	
 </mapper>

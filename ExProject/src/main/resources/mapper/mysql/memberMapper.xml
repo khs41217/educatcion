@@ -49,13 +49,15 @@
 	</select>
 
 	<!-- 파일 업로드 -->
-	<insert id="insertProfile" parameterType="FileDTO">
+	<insert id="insertfile" parameterType="FileDTO">
 		INSERT INTO sample_file_tb(
 		FILE_ORIGINAL_NAME
 		, FILE_CHANGED_NAME
 		, FILE_PATH
 		) values(
-		#{fileOriginalName}, #{fileChangedName}, #{filePath}
+		#{fileOriginalName}
+		, #{fileChangedName}
+		, #{filePath}
 		)
 	<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
 	</insert>

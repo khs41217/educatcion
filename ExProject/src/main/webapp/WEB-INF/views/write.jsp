@@ -27,8 +27,30 @@
 <script src="resources/vendor/countdowntime/countdowntime.js"></script>
 <script src="resources/js/main.js"></script>
 </head>
+<script>
+	function checkAll(){
+		var title = document.getElementById('boardTitle'); 
+		var writer = document.getElementById('boardWriter'); 
+		var contents = document.getElementById('boardContents');
+		var publicFl = $('input:radio[name="radio"]:checked').val( ) ;
+		alert(publicFl);
+		$('#hidden').val(boardPublicFl);
+		if(title.value == ''){
+			alert("제목을 입력해 주세요");
+			title.focus();
+			return false;
+		}
+		if(contents == ''){
+			alert("내용을 입력해 주세요");
+			contents.focus();
+			return false;
+		}	
+		return false;
+	}
+</script>
 
 <body>
+<form action="writeAction" method="POST" enctype="multipart/form-data">
 	<div class="limiter animsition">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -42,25 +64,34 @@
 								<tbody>
 									<tr>
 										<th class="padding-lg">제 목</th>
-										<td colspan="3">
-											<input type="text" class="form-control write-form" id="title" placeholder="제목을 작성해 주세요.">
+										<td colspan="4">
+											<input type="text" class="form-control write-form" id="boardTitle" name="boardTitle" placeholder="제목을 작성해 주세요.">
 										</td>
 									</tr>
 									<tr>
 										<th>작성자</th>
-										<td colspan="3">테스트</td>
+											<td>
+												<input type="text" class="form-control wirte-form" id="boardWriter" name="boardWriter" value="${user_id}" disabled>
+											</td>
+										<th>공개여부</th>					
+											<td>										
+												<input type="radio" name="radio" value="Y" class="" checked="checked"/>공개
+												<input type="radio" name="radio" value="N" class="" />비공개
+												<input type="hidden" name="boardPublicFl" id="hidden"/>
+											</td>			
+
 									</tr>
 									<tr>
-										<td colspan="4">
+										<td colspan="5">
 											<div class="detail-content">
-												<textarea class="form-control write-form" rows="14" id="comment" placeholder="내용을 작성해 주세요."></textarea>
+												<textarea class="form-control write-form" rows="14" id="boardContents" name="boardContents" placeholder="내용을 작성해 주세요."></textarea>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<th class="padding-lg">첨부파일</th>
-										<td colspan="3">
-											<input type="file" class="form-control write-form file-form" id="file">
+										<td colspan="4">
+											<input type="file" class="form-control write-form file-form" id="file" name="file">
 										</td>
 									</tr>
 								</tbody>
@@ -70,11 +101,11 @@
 
 					<div class="row">
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full" onclick="location.href='main.html';">목록</button>
+							<button type="button" class="btn btn-default btn-full" onclick="location.href='main';">목록</button>
 						</div>
 						<div class="col-sm-8"></div>
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full">저장</button>
+							<button type="submit" class="btn btn-default btn-full" onclick ="return checkAll()">저장</button>
 						</div>
 					</div>
 				</div>
@@ -82,6 +113,7 @@
 		</div>
 	</div>
 			<div id="dropDownSelect1"></div>
+</form>
 </body>
 
 </html>

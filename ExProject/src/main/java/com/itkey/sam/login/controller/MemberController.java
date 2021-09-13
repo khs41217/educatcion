@@ -47,7 +47,7 @@ public class MemberController {
 		MultipartFile multi = request.getFile("file");
 		String oldFileName = multi.getOriginalFilename();
 		String changeFileName = oldFileName;
-		String path = "C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources";
+		String path = "C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources\\resources";
 		FileDTO fDTO = new FileDTO();
 		fDTO.setFileOriginalName(oldFileName);
 		fDTO.setFileChangedName(changeFileName);

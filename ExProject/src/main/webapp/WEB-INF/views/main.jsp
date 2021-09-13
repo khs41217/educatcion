@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,7 +29,6 @@
 <script src="resources/vendor/daterangepicker/daterangepicker.js"></script>
 <script src="resources/vendor/countdowntime/countdowntime.js"></script>
 <script src="resources/js/main.js"></script>
-
 </head>
 
 <body>
@@ -37,7 +37,9 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form">
-					${user_id} 님 어서오세요
+					<c:if test="${user_id ne null }">
+						<div>${user_id} 님 어서오세요 <button type="button" class="btn btn-default" style="float:right; margin-top: -15px;" onclick=" ">로그아웃</button></div>
+					</c:if>
 					<div class="row panel-row">
 						<div class="col-sm-3">
 							<div class="overview-div">
@@ -70,11 +72,11 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-default">
+							<button type="button" class="btn btn-default" onclick="location.href='write'">
 								<i class="fas fa-plus"></i> 새글 추가
 							</button>
-							<button type="button" class="btn btn-default" onclick="' ">채팅하기</button>
-							<button type="button" class="btn btn-default" onclick="' ">정보수정</button>
+							<button type="button" class="btn btn-default" onclick=" ">채팅하기</button>
+							<button type="button" class="btn btn-default" onclick=" ">정보수정</button>
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-2">
@@ -112,9 +114,10 @@
 									<td>${status.count }</td>
 									<td>${list.boardWriter }</td>
 									<td><i class="fas fa-lock"></i></td>
-										<!-- <i class="fas fa-lock-open"></i> -->
+									<!-- <i class="fas fa-lock-open"></i> -->
 									<td>${list.boardTitle }</td>
-									<td>${list.boardWriteDate }</td>
+									<fmt:formatDate var="formatRegDate" value="${list.boardWriteDate }" pattern="yyyy-MM-dd"/>
+									<td>${formatRegDate }</td>
 									<td>${list.boardViewCount }</td>
 								</tr>
 								</c:forEach>

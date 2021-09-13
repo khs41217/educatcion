@@ -3,6 +3,7 @@ package com.itkey.sam.board.model.dao;
 import java.util.List;
 
 import com.itkey.sam.board.dto.BoardDTO;
+import com.itkey.sam.file.dto.FileDTO;
 
 public interface BoardDAO {
 
@@ -44,12 +45,26 @@ public interface BoardDAO {
 	 */
 	public int deleteBoard(String keyId) throws Exception;
 	
+	//전체 게시물 수 조회
 	public int totalContent()throws Exception;
 	
+	
+	// 전체 가입회원 수 조회
 	public int totalMember()throws Exception;
 
+	
+	// 하루 게시물 수 조회
 	public int todayContent()throws Exception;
 	
+	
+	// 하루 가입회원 수 조회
 	public int todayMember()throws Exception;
+	
+	// 파일 업로드
+	public int insertFile(FileDTO fDTO)throws Exception;
+	
+	public int findFileIdx(FileDTO eDTO) throws Exception;
+	
+	
 	
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itkey.sam.board.dto.BoardDTO;
+import com.itkey.sam.file.dto.FileDTO;
 
 @Repository("boardDAO")
 public class BoardDAOImpl implements BoardDAO {
@@ -80,6 +81,21 @@ public class BoardDAOImpl implements BoardDAO {
 		int result = sqlSession.selectOne("todayMember");
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;
-	};
+	}
+
+	public int insertFile(FileDTO fDTO) throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : insertFile");
+		int result = sqlSession.insert("insertFile");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
+	}
+
+	public int findFileIdx(FileDTO eDTO) throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : findFileName");
+		int result = sqlSession.insert("fineBoardFileIdx");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+		return result;
+	}
+
 	
 }

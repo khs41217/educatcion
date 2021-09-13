@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.dao.BoardDAO;
+import com.itkey.sam.file.dto.FileDTO;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -84,6 +85,20 @@ public class BoardServiceImpl implements BoardService {
 	public int todayContent() throws Exception {
 		logger.debug("* [SERVICE] Input  ◀ (Controller)");
 		int result = dao.todayContent();
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
+	}
+
+	public int addFile(FileDTO fDTO) throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.insertFile(fDTO);
+		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+		return result;
+	}
+
+	public int findFileIdx(FileDTO eDTO) throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+		int result = dao.findFileIdx(eDTO);
 		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
 		return result;
 	};

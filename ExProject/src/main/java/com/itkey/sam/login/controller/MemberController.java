@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,7 +47,7 @@ public class MemberController {
 	public void memberRegisterAction(MemberDTO eDTO, RedirectAttributes red, HttpServletResponse response, Model model, MultipartHttpServletRequest request) throws Exception{
 		MultipartFile multi = request.getFile("file");
 		String oldFileName = multi.getOriginalFilename();
-		String changeFileName = oldFileName;
+		String changeFileName = oldFileName + UUID.randomUUID();
 		String path = "C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources\\resources";
 		FileDTO fDTO = new FileDTO();
 		fDTO.setFileOriginalName(oldFileName);

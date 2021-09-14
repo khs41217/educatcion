@@ -7,21 +7,21 @@ import java.util.Date;
  */
 public class BoardDTO {
 	
-	private String boardIdx          = null;
+	private int boardIdx          = 0;
 	private String boardWriter       = null;
 	private String boardTitle        = null;
 	private String boardContents     = null;
 	private String boardViewCount    = null;
-	private String fileIdx           = null;
+	private int fileIdx           = 0;
 	private String row           	= null;
 	private String offset           = null;
 	private String boardPublicFl = null; 
 	private Date boardWriteDate = null;
 	
-	public String getBoardIdx() {
+	public int getBoardIdx() {
 		return boardIdx;
 	}
-	public void setBoardIdx(String boardIdx) {
+	public void setBoardIdx(int boardIdx) {
 		this.boardIdx = boardIdx;
 	}
 	public String getBoardWriter() {
@@ -48,10 +48,10 @@ public class BoardDTO {
 	public void setBoardViewCount(String boardViewCount) {
 		this.boardViewCount = boardViewCount;
 	}
-	public String getFileIdx() {
+	public int getFileIdx() {
 		return fileIdx;
 	}
-	public void setFileIdx(String fileIdx) {
+	public void setFileIdx(int fileIdx) {
 		this.fileIdx = fileIdx;
 	}
 	public String getRow() {
@@ -73,5 +73,13 @@ public class BoardDTO {
 	public void setBoardWriteDate(Date boardWriterJoinDate) {
 		this.boardWriteDate = boardWriterJoinDate;
 	}
+	
+	public String getBoardPublicFl() {
+		return boardPublicFl;
+	}
+	public void setBoardPublicFl(String boardPublicFl) {
+		this.boardPublicFl = boardPublicFl;
+	}	
+	
 	
 }

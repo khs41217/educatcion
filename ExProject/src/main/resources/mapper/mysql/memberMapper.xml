@@ -54,7 +54,8 @@
 		FILE_ORIGINAL_NAME
 		, FILE_CHANGED_NAME
 		, FILE_PATH
-		) values(
+		) values
+		(
 		#{fileOriginalName}
 		, #{fileChangedName}
 		, #{filePath}

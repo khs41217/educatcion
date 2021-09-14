@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.paging.Criteria;
 
 public interface BoardDAO {
 
@@ -61,9 +62,30 @@ public interface BoardDAO {
 	public int todayMember()throws Exception;
 	
 	// 파일 업로드
-	public int insertFile(FileDTO fDTO)throws Exception;
+//	public int insertFile(FileDTO fDTO)throws Exception;
+//	
+//	public FileDTO findFileIdx(FileDTO fDTO)throws Exception;
+//	
+//	public FileDTO findBoardFileIdx(int fileIdx)throws Exception;
 	
-	public int findFileIdx(FileDTO eDTO) throws Exception;
+	//파일 업로드
+	public int insertFile(FileDTO dto) throws Exception;
+	
+	//파일 이름
+	public FileDTO fileName(FileDTO dto) throws Exception;
+	
+	//파일이름
+	public FileDTO boardFileIdx(int fileIdx) throws Exception;
+
+	public BoardDTO pagePre(int boardIdx) throws Exception;
+	
+	public BoardDTO nextPage(int boardIdx) throws Exception;
+	
+	public List<BoardDTO> pageList(Criteria cri) throws Exception;
+	
+	public int getTotalCount(Criteria cri) throws Exception;
+	
+	public int count() throws Exception;
 	
 	
 	

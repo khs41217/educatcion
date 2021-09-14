@@ -33,7 +33,6 @@
 		var writer = document.getElementById('boardWriter'); 
 		var contents = document.getElementById('boardContents');
 		var publicFl = $('input:radio[name="radio"]:checked').val( ) ;
-		alert(publicFl);
 		$('#hidden').val(boardPublicFl);
 		if(title.value == ''){
 			alert("제목을 입력해 주세요");
@@ -50,7 +49,7 @@
 </script>
 
 <body>
-<form action="writeAction" method="POST" enctype="multipart/form-data">
+<form action="write" method="POST" enctype="multipart/form-data">
 	<div class="limiter animsition">
 		<div class="container-login100">
 			<div class="wrap-login100">

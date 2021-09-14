@@ -22,7 +22,6 @@
 			<if test="boardWriteDate !=null and boardWriteDate !=''"><![CDATA[ AND BOARD_WRITE_DATE = #{boardWriteDate}  ]]></if>
 			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
 		</where>
-		<if test="row != 0"><![CDATA[ LIMIT #{offset}, #{row} ]]></if>
 	</select>
 
 	<!-- paging 처리용 -->
@@ -49,7 +48,7 @@
 			<if test="boardContents  !=null and boardContents  !=''"> , BOARD_CONTENTS   </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , BOARD_VIEW_COUNT </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , FILE_IDX         </if>
-			<if test="boardPublicFl !=null and boardPulbicFl !=''"> , BOARD_PUBLIC_FL</if>
+			<if test="boardPublicFl !=null and boardPublicFl !=''"> , BOARD_PUBLIC_FL</if>
 			<if test="boardWriteDate !=null and boardWriteDate !=''"> , BOARD_WRITE_DATE </if>
 			</trim>
 		) VALUES(
@@ -60,7 +59,7 @@
 			<if test="boardContents  !=null and boardContents  !=''"> , #{boardContents}  </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , #{boardViewCount} </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , #{fileIdx}        </if>
-			<if test="boardPublicFl !=null and boardPulbicFl !=''"> , #{boardPublicFL</if>
+			<if test="boardPublicFl !=null and boardPublicFl !=''"> , #{boardPublicFL</if>
 			<if test="boardWriteDate !=null and boardWriteDate !=''"> , #{boardWriteDate} </if>
 			</trim>
 		)
@@ -85,33 +84,41 @@
 		DELETE FROM SAMPLE_BOARD_TB WHERE BOARD_IDX = #{boardIdx}
 	</delete>
 	
+	<!-- 총 게시물 수 조회 -->
 	<select id="countTotalContent" resultType="int">
 		SELECT  COUNT(*) FROM SAMPLE_BOARD_TB	
 	</select>
 	
+	<!--  총 회원가입 수 조회 -->
 	<select id="countTotalMember" resultType="int">
 		SELECT  COUNT(*) FROM SAMPLE_WRITER_TB	
 	</select>
-
+	
+	<!--  당일 게시글 수 -->
 	<select id="todayContent" resultType="int">
 		SELECT COUNT(*) FROM SAMPLE_BOARD_TB
 		WHERE
 		DATE_FORMAT(BOARD_WRITE_DATE, "%Y-%m-%d") = CURDATE()
 	</select>
 
+	<!--  당일 가입회원 수  -->
 	<select id="todayMember" resultType="int">
 		SELECT COUNT(*) FROM SAMPLE_WRITER_TB
 		WHERE
 		DATE_FORMAT(BOARD_WRITER_JOIN_DATE, "%Y-%m-%d") = CURDATE()
 	</select>
+	
 	<!-- 파일 업로드 -->
-	<insert id="insertFile" parameterType="FileDTO">
-		INSERT INTO sample_file_tb(
-		FILE_ORIGINAL_NAME
-		, FILE_CHANGED_NAME
-		, FILE_PATH
+<!-- 
+ 	<insert id="insertFile" parameterType="FileDTO">
+		INSERT INTO sample_file_tb
+			( FILE_ORIGINAL_NAME
+			, FILE_CHANGED_NAME
+			, FILE_PATH
 		) values(
-		#{fileOriginalName}, #{fileChangedName}, #{filePath}
+			#{fileOriginalName}
+			, #{fileChangedName}
+			, #{filePath}
 		)
 	<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
 	</insert>
@@ -120,18 +127,135 @@
 		SELECT
 		*
 		FROM
-		sample_file_tb
+			sample_file_tb
 		WHERE
-		FILE_IDX = #{fileIdx}
+			FILE_IDX = #{fileIdx}
 	</select>
 	
 	<select id="findBoardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT
 		*
 		FROM
-		sample_board_tb
+			sample_board_tb
 		WHERE
-		BOARD_IDX = #{boardIdx}
+			BOARD_IDX = #{boardIdx}
 	</select>
+ -->
+ 	<insert id="insertFile" parameterType="FileDTO">
+		INSERT INTO sample_file_tb
+			(	FILE_ORIGINAL_NAME
+				, FILE_CHANGED_NAME
+				, FILE_PATH
+			) VALUES(
+				#{fileOriginalName}
+				, #{fileChangedName}
+				, #{filePath}
+			)
+		<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
+	</insert>
+	<!-- 파일업로드 -->
+	<select id="fileName" parameterType="FileDTO" resultType="FileDTO">
+		SELECT 
+			*
+		FROM 
+			sample_file_tb 
+		WHERE
+			FILE_IDX = #{fileIdx} 
+	</select>
+	<select id="boardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT
+			* 
+		 FROM 
+			sample_board_tb 
+		 WHERE 
+		 	BOARD_IDX= #{boardIdx};
+	</select>
+	
+	<select id="getBoard" parameterType="BoardDTO" resultType="BoardDTO">
+		SELECT
+		FROM
+			sample_board_tb
+		WHERE
+			BOARD_IDX = 
+	</select>
+ 
+ 	<!-- 이전글  -->
+	<select id="pagePre" resultType="BoardDTO">
+		SELECT 
+			* 
+		FROM 
+			sample_board_tb
+		WHERE 
+			BOARD_IDX <![CDATA[<]]> #{boardIdx} AND BOARD_PUBLIC_FL = 'Y' 
+		ORDER BY 
+			BOARD_IDX DESC 
+		LIMIT 
+			1  
+	</select>
+	<!-- 다음글 -->
+	<select id="pageNext" resultType="BoardDTO">
+		SELECT 
+			* 
+		FROM 
+			sample_board_tb
+		WHERE 
+			BOARD_IDX <![CDATA[>]]> #{boardIdx} AND BOARD_PUBLIC_FL = 'Y'
+		ORDER BY 
+			BOARD_IDX
+		LIMIT 
+			1  
+	</select>
+ 
+ 	<select id="count" resultType="int">
+ 		SELECT
+ 			count(*) 
+ 		FROM
+ 			sample_board_tb
+ 	</select>
+		
+	<select id="pageList" resultType="BoardDTO">
+		SELECT
+			*
+		FROM
+			sample_board_tb
+		WHERE 
+			BOARD_IDX > 0
+		<include refid="searchCondition"></include>	
+		ORDER BY
+			BOARD_IDX DESC
+		LIMIT
+			#{pageStart}, #{perPageNum}
+	</select>
+		<select id="getTotalCount" resultType="int">
+		SELECT 
+			COUNT(BOARD_IDX)
+		FROM 
+		 	sample_board_tb
+		WHERE
+			BOARD_IDX > 0
+		<include refid="searchCondition"></include>
+	</select>
+	
+	<sql id="searchCondition">
+		<if test="searchType != null">
+			<if test="searchType == 'c'.toString()">
+				AND
+					BOARD_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'w'.toString()">
+				AND
+					BOARD_WRITER LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+			<if test="searchType == 'all'.toString()">
+				AND
+					 BOARD_CONTENTS LIKE CONCAT('%', #{keyword}, '%')
+						OR
+					 BOARD_WRITER LIKE CONCAT('%', #{keyword}, '%')
+					 	OR
+					 BOARD_TITLE LIKE CONCAT('%', #{keyword}, '%')		
+			</if>
+		</if>
+	</sql>
+	
 	
 </mapper>

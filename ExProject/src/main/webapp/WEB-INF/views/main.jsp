@@ -31,6 +31,66 @@
 <script src="resources/js/main.js"></script>
 </head>
 
+<script>
+$(function(){
+	setPerPageNumSelect();
+	setSearchTypeSelect();
+	
+	//prev 버튼 처리
+	var canPrev = '${pageMaker.prev}';
+	if(canPrev !== 'true'){
+		$('#page-prev').addClass('disabled');
+	}
+	
+	//next 버튼 처리
+	var canNext = '${pageMaker.next}';
+	if(canNext !== 'true'){
+		$('#page-next').addClass('disabled');
+	}
+	var thisPage = '${pageMaker.cri.page}';
+	$('#page'+thisPage).addClass('active');
+})
+
+function setPerPageNumSelect(){
+	var perPageNum = "${pageMaker.cri.perPageNum}";
+	var $perPageSel = $('#perPageSel');
+	var thisPage = '${pageMaker.cri.page}';
+	$perPageSel.val(perPageNum).prop("selected",true);
+	$perPageSel.on('change',function(){
+		window.location.href = "/sam/main?page="+thisPage+"&perPageNum="+$perPageSel.val();
+	})
+}
+
+	function setSearchTypeSelect(){
+	var $searchTypeSel = $('#searchType');
+	var $keyword = $('#keyword');
+	
+	$searchTypeSel.val('${pageMaker.cri.searchType}').prop("selected", true);
+	
+	$('#searchBtn').on('click', function(){
+		var searchTypeVal = $searchTypeSel.val();
+		var keywordVal = $keyword.val();
+		if(!searchTypeVal){
+			alert("검색 조건을 선택하세요");
+			$searchTypeSel.focus();
+			return;
+		}else if(!keywordVal || kewordVal < 2){
+			alert("검색어는 2자 이상입니다.");
+			$('#keyword').focus();
+			return;
+			
+		}
+	
+		var url = "/sam/main?page=1"
+				+ "&perPageNum=" + "${pageMaker.cri.perPageNum}"
+				+ "&searchType=" + searchTypeVal
+				+ "&keyword=" + encodeURIComponent(keywordVal);
+				
+				window.location.href = url;
+				
+	})
+} 
+</script>
 <body>
 
 	<div class="limiter animsition">
@@ -44,28 +104,28 @@
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">총 게시글 수</h5>
-								<h1 class="overview-content">${info.totalContent}</h1>
+								<h1 class="overview-content">${totalContent}</h1>
 								<i class="far fa-file-alt"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">총 가입자 수</h5>
-								<h1 class="overview-content">${info.totalMember}</h1>
+								<h1 class="overview-content">${totalMember}</h1>
 								<i class="fas fa-users"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">오늘 게시글 수</h5>
-								<h1 class="overview-content">${info.todayContent }</h1>
+								<h1 class="overview-content">${todayContent}</h1>
 								<i class="fas fa-file-alt"></i>
 							</div>
 						</div>
 						<div class="col-sm-3">
 							<div class="overview-div">
 								<h5 class="overview-title">오늘 가입자 수</h5>
-								<h1 class="overview-content">${info.todayMember }</h1>
+								<h1 class="overview-content">${todayMember}</h1>
 								<i class="fas fa-user-circle"></i>
 							</div>
 						</div>
@@ -75,8 +135,8 @@
 							<button type="button" class="btn btn-default" onclick="location.href='write'">
 								<i class="fas fa-plus"></i> 새글 추가
 							</button>
-							<button type="button" class="btn btn-default" onclick=" ">채팅하기</button>
-							<button type="button" class="btn btn-default" onclick=" ">정보수정</button>
+							<button type="button" class="btn btn-default" onclick="location.href='chat'">채팅하기</button>
+							<button type="button" class="btn btn-default" onclick="location.href='modify'">정보수정</button>
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-2">
@@ -109,13 +169,13 @@
 									</tr>
 								</thead>
 								<tbody>
-								<c:forEach items="${list }" var="list" varStatus="status">
+								<c:forEach items="${list}" var="list" varStatus="status">
 								<tr>
-									<td>${status.count }</td>
-									<td>${list.boardWriter }</td>
+									<td>${status.count}</td>
+									<td>${list.boardWriter}</td>
 									<td><i class="fas fa-lock"></i></td>
 									<!-- <i class="fas fa-lock-open"></i> -->
-									<td>${list.boardTitle }</td>
+									<td><a href="/sam/detail?boardIdx=${list.boardIdx}">${list.boardTitle }</a></td>
 									<fmt:formatDate var="formatRegDate" value="${list.boardWriteDate }" pattern="yyyy-MM-dd"/>
 									<td>${formatRegDate }</td>
 									<td>${list.boardViewCount }</td>
@@ -125,21 +185,21 @@
 							</table>
 						</div>
 					</div>
+					<!--  페이징  -->
 					<div class="row">
 						<div class="col-sm-12 text-center">
 							<ul class="pagination">
-								<li><a href="#">이전</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">6</a></li>
-								<li><a href="#">7</a></li>
-								<li><a href="#">8</a></li>
-								<li><a href="#">9</a></li>
-								<li><a href="#">10</a></li>
-								<li><a href="#">다음</a></li>
+								<li>
+									<a href="/sam/main${pageMaker.makerQuery(pageMaker.startPage - 1)}">이전</a>
+								</li>
+							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
+								<li id="page${idx}">
+									<a href ="/sam/main${pageMaker.makeQuery(idx)}">${idx}</a>
+								</li>
+							</c:forEach>
+								<li>
+									<a href ="/sam/main${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a>
+								</li>
 							</ul>
 						</div>
 					</div>

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.dao.BoardDAO;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.paging.Criteria;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -89,18 +90,72 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
-	public int addFile(FileDTO fDTO) throws Exception {
-		logger.debug("* [SERVICE] Input  ◀ (Controller)");
-		int result = dao.insertFile(fDTO);
-		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+//	public int addFile(FileDTO fDTO) throws Exception {
+//		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+//		int result = dao.insertFile(fDTO);
+//		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+//		return result;
+//	}
+//
+//	public FileDTO findFileIdx(FileDTO fDTO) throws Exception {
+//		logger.debug("* [SERVICE] Input  ◀ (Controller)");
+//		logger.debug("* [SERVICE] Output ◀ (DAO) : ");
+//		return dao.findFileIdx(fDTO);
+//	};
+//	
+//	public FileDTO findBoardFileIdx(int fileIdx) throws Exception{
+//		logger.debug("* [SERVICE] Input  ◀ (Controller)");		
+//		logger.debug("* [SERVICE] Output ◀ (DAO) : ");
+//		return dao.findBoardFileIdx(fileIdx);
+//	}
+	
+	//파일 업로드
+	public int insertFile(FileDTO dto) throws Exception{
+		return dao.insertFile(dto);
+	}
+
+	//파일이름
+	public FileDTO fileName(FileDTO dto) throws Exception {	
+		return dao.fileName(dto);
+	}
+	
+	//파일이름
+	public FileDTO boardFileIdx(int fileIdx) throws Exception {
+		return dao.boardFileIdx(fileIdx);
+	}
+
+
+	public BoardDTO pagePre(int boardIdx) throws Exception {
+		logger.debug("* [SERVICE] Output ◀ (DAO) : "+ boardIdx);
+		BoardDTO state = dao.pagePre(boardIdx);
+		logger.debug("* [SERVICE] Input  ◀ (Controller)"+ state);		
+		return state;
+	}
+	
+	public BoardDTO nextPage(int boardIdx) throws Exception{
+		logger.debug("* [SERVICE] Output ◀ (DAO) : "+ boardIdx);
+		BoardDTO state = dao.nextPage(boardIdx);
+		logger.debug("* [SERVICE] Input  ◀ (Controller)" +state);		
+		return state;
+		
+	}
+	
+	public int getTotalCount(Criteria cri) throws Exception{
+		logger.debug("* [SERVICE] Output ◀ (DAO) : getTotalCount");
+		int result = dao.getTotalCount(cri);
+		logger.debug("* [SERVICE] Input  ◀ (Controller)" + result);		
 		return result;
 	}
 
-	public int findFileIdx(FileDTO eDTO) throws Exception {
-		logger.debug("* [SERVICE] Input  ◀ (Controller)");
-		int result = dao.findFileIdx(eDTO);
-		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
+	@Override
+	public List<BoardDTO> pageList(Criteria cri) throws Exception {
+		return dao.pageList(cri);
+	}
+	
+	public int count() throws Exception{		
+		int result = dao.count();
 		return result;
-	};
-
+	}
+	
+	
 }

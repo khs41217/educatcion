@@ -46,5 +46,10 @@ public class MemberServiceImpl implements MemberService {
 	public int insertProfile(FileDTO eDTO) throws Exception {
 		return dao.insertProfile(eDTO);
 	}
+	
+	public int updateInfo(MemberDTO dto) throws Exception{
+		int result = dao.updateInfo(dto); 
+		return result;
+	}
 
 }

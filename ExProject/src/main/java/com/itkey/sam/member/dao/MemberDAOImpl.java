@@ -64,6 +64,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.insert("insertProfile", eDTO);
 	}
 
+	
+	public int updateInfo(MemberDTO dto) throws Exception{
+		int result = 0;
+		try{
+			result = sqlSession.update("updateInfo", dto); 
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return result;
 
+	}
 
 }

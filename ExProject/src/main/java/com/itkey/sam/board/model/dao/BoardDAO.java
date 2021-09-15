@@ -87,6 +87,7 @@ public interface BoardDAO {
 	
 	public int count() throws Exception;
 	
+	public String getFileName(int boardIdx) throws Exception;
 	
 	
 }

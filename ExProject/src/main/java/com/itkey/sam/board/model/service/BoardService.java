@@ -90,4 +90,10 @@ public interface BoardService {
 	public List<BoardDTO> pageList(Criteria cri) throws Exception;
 	
 	public int count() throws Exception;
+	
+	public String getFileName(int boardIdx) throws Exception;
+	
+	
+	
+	
 }

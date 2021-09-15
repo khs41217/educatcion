@@ -140,7 +140,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" readonly>
 							<div class="input-group-btn">
-								<span class="fileUpload btn login100-form-btn"> <span class="upl" id="upload">업로드</span> <input type="file" class="upload up" id="up" name="file"onchange="readURL(this);" />
+								<span class="fileUpload btn login100-form-btn"> <span class="upl" id="upload">업로드</span><input type="file" class="upload up" id="up" name="file" onchange="readURL(this);" />
 								</span>
 								<!-- btn-orange -->
 							</div>

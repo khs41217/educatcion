@@ -175,10 +175,10 @@ function setPerPageNumSelect(){
 									<td>${list.boardWriter}</td>
 									<td><i class="fas fa-lock"></i></td>
 									<!-- <i class="fas fa-lock-open"></i> -->
-									<td><a href="/sam/detail?boardIdx=${list.boardIdx}">${list.boardTitle }</a></td>
-									<fmt:formatDate var="formatRegDate" value="${list.boardWriteDate }" pattern="yyyy-MM-dd"/>
-									<td>${formatRegDate }</td>
-									<td>${list.boardViewCount }</td>
+									<td><a href="/sam/detail?boardIdx=${list.boardIdx}">${list.boardTitle}</a></td>
+									<fmt:formatDate var="formatRegDate" value="${list.boardWriteDate}" pattern="yyyy-MM-dd"/>
+									<td>${formatRegDate}</td>
+									<td>${list.boardViewCount}</td>
 								</tr>
 								</c:forEach>
 								</tbody>
@@ -190,7 +190,7 @@ function setPerPageNumSelect(){
 						<div class="col-sm-12 text-center">
 							<ul class="pagination">
 								<li>
-									<a href="/sam/main${pageMaker.makerQuery(pageMaker.startPage - 1)}">이전</a>
+									<a href="/sam/main${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a>
 								</li>
 							<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 								<li id="page${idx}">
@@ -203,6 +203,7 @@ function setPerPageNumSelect(){
 							</ul>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>

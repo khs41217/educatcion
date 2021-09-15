@@ -4,15 +4,10 @@
 <mapper namespace="sample">
 
 	<select id="selectBoard" parameterType="BoardDTO" resultType="BoardDTO">
-		SELECT BOARD_IDX
-			, BOARD_WRITER
-			, BOARD_TITLE
-			, BOARD_CONTENTS
-			, BOARD_VIEW_COUNT
-			, BOARD_WRITE_DATE 
-			, FILE_IDX
-		FROM SAMPLE_BOARD_TB
-		WHERE DATE_FORMAT(BOARD_WRITE_DATE, "%Y-%m-%d")
+		SELECT
+			*
+		FROM 
+			SAMPLE_BOARD_TB
 		<where>
 			<if test="boardIdx       !=null and boardIdx       !=''"><![CDATA[ AND BOARD_IDX         = #{boardIdx}       ]]></if>
 			<if test="boardWriter    !=null and boardWriter    !=''"><![CDATA[ AND BOARD_WRITER      = #{boardWriter}    ]]></if>
@@ -20,7 +15,6 @@
 			<if test="boardContents  !=null and boardContents  !=''"><![CDATA[ AND BOARD_CONTENTS    = #{boardContents}  ]]></if>
 			<if test="boardViewCount !=null and boardViewCount !=''"><![CDATA[ AND BOARD_VIEW_COUNT  = #{boardViewCount} ]]></if>
 			<if test="boardWriteDate !=null and boardWriteDate !=''"><![CDATA[ AND BOARD_WRITE_DATE = #{boardWriteDate}  ]]></if>
-			<if test="fileIdx        !=null and fileIdx        !=''"><![CDATA[ AND FILE_IDX          = #{fileIdx}        ]]></if>
 		</where>
 	</select>
 
@@ -59,11 +53,11 @@
 			<if test="boardContents  !=null and boardContents  !=''"> , #{boardContents}  </if>
 			<if test="boardViewCount !=null and boardViewCount !=''"> , #{boardViewCount} </if>
 			<if test="fileIdx        !=null and fileIdx        !=''"> , #{fileIdx}        </if>
-			<if test="boardPublicFl !=null and boardPublicFl !=''"> , #{boardPublicFL</if>
+			<if test="boardPublicFl !=null and boardPublicFl !=''"> , #{boardPublicFl}</if>
 			<if test="boardWriteDate !=null and boardWriteDate !=''"> , #{boardWriteDate} </if>
 			</trim>
 		)
-		<selectKey resultType="String" keyProperty="boardIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
+		<selectKey resultType="int" keyProperty="boardIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
 	</insert>
 
 	<!-- UPDATE SAMPLE_BOARD_TB -->
@@ -162,6 +156,16 @@
 		WHERE
 			FILE_IDX = #{fileIdx} 
 	</select>
+	
+	<select id="getfileName" parameterType="int" resultType="FileDTO">
+		SELECT 
+			*
+		FROM 
+			sample_file_tb 
+		WHERE
+			FILE_IDX = #{fileIdx} 
+	</select>
+	
 	<select id="boardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT
 			* 
@@ -180,7 +184,7 @@
 	</select>
  
  	<!-- 이전글  -->
-	<select id="pagePre" resultType="BoardDTO">
+	<select id="prePage" resultType="BoardDTO">
 		SELECT 
 			* 
 		FROM 
@@ -193,7 +197,7 @@
 			1  
 	</select>
 	<!-- 다음글 -->
-	<select id="pageNext" resultType="BoardDTO">
+	<select id="nextPage" resultType="BoardDTO">
 		SELECT 
 			* 
 		FROM 
@@ -235,6 +239,17 @@
 			BOARD_IDX > 0
 		<include refid="searchCondition"></include>
 	</select>
+	
+	<select id="findFileName" parameterType="int" resultType="String">
+		SELECT
+			f.FILE_ORIGINAL_NAME
+		FROM
+			sample_board_tb b inner join sample_file_tb f on b.FILE_IDX = f.FILE_IDX
+		WHERE file_idx = ${fileIdx}
+		
+	</select>
+	
+	
 	
 	<sql id="searchCondition">
 		<if test="searchType != null">

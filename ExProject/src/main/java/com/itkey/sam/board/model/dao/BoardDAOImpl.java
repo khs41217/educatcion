@@ -106,7 +106,7 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public BoardDTO pagePre(int boardIdx) throws Exception {
 		logger.debug("* [DAO] Input  ◀ (Service) : "+ boardIdx);
-		BoardDTO state = sqlSession.selectOne("pagePre",boardIdx);
+		BoardDTO state = sqlSession.selectOne("prePage",boardIdx);
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + state);
 		return state;
 	}
@@ -121,7 +121,10 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public int getTotalCount(Criteria cri) throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : "+ cri);
 		int result = sqlSession.selectOne("getTotalCount", cri);
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
+
 		return result;
 	}
 
@@ -132,9 +135,20 @@ public class BoardDAOImpl implements BoardDAO {
 
 	
 	public int count() throws Exception{
+		logger.debug("* [DAO] Input  ◀ (Service) : count");
 		int result = sqlSession.selectOne("count");
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;
 	}
+	
+	public String getFileName(int boardIdx) throws Exception{
+		logger.debug("* [DAO] Input  ◀ (Service) : "+ boardIdx);
+		String name = sqlSession.selectOne("getFileName", boardIdx); 
+		logger.debug("* [DAO] Output ◀ (Mybatis) : " + name);
+		return name;
+	}
+	
+	
 //	public int insertFile(FileDTO fDTO) throws Exception {
 //		logger.debug("* [DAO] Input  ◀ (Service) : "+ fDTO.toString());
 //		int result = sqlSession.insert("sample.insertFile", fDTO);

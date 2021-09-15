@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="kr">
 
 <head>
@@ -44,11 +46,11 @@
 						</div>
 						<div class="col-sm-8 col-mid">
 							<div class="well well-sm">
-								<button class="btn btn-link">이전 글 제목입니다.</button>
+								<button class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${prePage.boardIdx}';">${prePage.boardTitle}</button>
 							</div>
 						</div>
 						<div class="col-sm-2 col-footer">
-							<div class="well well-sm">2019-10-13</div>
+							<div class="well well-sm"><fmt:formatDate pattern="yyyy-MM-dd" value="${prePage.boardWriteDate}"/></div>
 						</div>
 					</div>
 					<div class="row">
@@ -57,24 +59,24 @@
 								<tbody>
 									<tr>
 										<th>제목</th>
-										<td>제목입니다.</td>
+										<td>${list.boardTitle}</td>
 										<th>조회수</th>
-										<td>1</td>
+										<td>${list.boardViewCount}</td>
 									</tr>
 									<tr>
 										<th>작성자</th>
-										<td>홍길동</td>
+										<td>${list.boardWriter}</td>
 										<th>작성일자</th>
-										<td>2021년01월01일</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.boardWriteDate}"/></td>
 									</tr>
 									<tr>
 										<td colspan="4">
-											<div class="detail-content"></div>
+											<div class="detail-content">${list.boardContents}</div>
 										</td>
 									</tr>
 									<tr>
 										<th>첨부파일</th>
-										<td colspan="3"></td>
+										<td colspan="3">${fileName}</td>
 									</tr>
 								</tbody>
 							</table>
@@ -88,23 +90,23 @@
 						</div>
 						<div class="col-sm-8 col-mid">
 							<div class="well well-sm">
-								<button class="btn btn-link">다음 글 제목입니다.</button>
+								<button class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${nextPage.boardIdx}';">${nextPage.boardTitle}</button>
 							</div>
 						</div>
 						<div class="col-sm-2 col-footer">
-							<div class="well well-sm">2019-10-13</div>
+							<div class="well well-sm"><fmt:formatDate pattern="yyyy-MM-dd" value="${nextPage.boardWriteDate}"/></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full" onclick="location.href='main.html';">목록</button>
+							<button class="btn btn-default btn-full" onclick="location.href='main';">목록</button>
 						</div>
 						<div class="col-sm-6"></div>
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full">수정</button>
+							<button class="btn btn-default btn-full" onclick="location.href='/sam/update?boardIdx=${list.boardIdx}';">수정</button>
 						</div>
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full">삭제</button>
+							<button class="btn btn-default btn-full" onclick="deleteChk()">삭제</button>
 						</div>
 					</div>
 				</div>

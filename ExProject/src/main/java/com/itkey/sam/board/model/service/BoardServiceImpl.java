@@ -157,5 +157,9 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 	
+	public String getFileName(int boardIdx) throws Exception{
+		String name = dao.getFileName(boardIdx);
+		return name;
+	}
 	
 }

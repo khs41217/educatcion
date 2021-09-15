@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -81,6 +82,7 @@ public class MemberController {
 						+ "alert('회원가입이 완료 되었습니다.');"
 						+ "location.href='/sam/login';"
 						+ "</script>";
+				out.print(body);
 			}
 			
 		}catch (IllegalStateException e) {
@@ -123,5 +125,24 @@ public class MemberController {
 				out.print(body);
 			}
 		}
+	//정보수정
+	@RequestMapping(value="modify", method=RequestMethod.GET)
+	public String modify() throws Exception{
+		
+		return "/modify";
+	}
+	
+	@RequestMapping(value="modify", method=RequestMethod.POST)
+	public String updateModify(MemberDTO dto, HttpSession session, Model model) throws Exception{
+		int result = memberService.updateInfo(dto);
+		String state = "";
+		if(result == 1) {
+			state="login";
+		} else {
+			state="modify";
+		}
+		session.invalidate();
+		return state;
+	}
 	
 }

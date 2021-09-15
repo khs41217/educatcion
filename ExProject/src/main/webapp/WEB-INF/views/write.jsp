@@ -70,7 +70,7 @@
 									<tr>
 										<th>작성자</th>
 											<td>
-												<input type="text" class="form-control wirte-form" id="boardWriter" name="boardWriter" value="${user_id}" disabled>
+												<input type="text" class="form-control wirte-form" id="boardWriter" name="boardWriter" value="${user_id}" disabled="disabled">
 											</td>
 										<th>공개여부</th>					
 											<td>										

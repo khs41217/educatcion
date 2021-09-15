@@ -13,6 +13,8 @@ public interface MemberService {
 	public int idCheck(MemberDTO dto) throws Exception;
 	public int insertProfile(FileDTO eDTO) throws Exception;
 	
+	public int updateInfo(MemberDTO dto) throws Exception;
+	
 	
 
 }

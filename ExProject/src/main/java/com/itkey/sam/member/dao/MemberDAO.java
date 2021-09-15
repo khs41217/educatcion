@@ -13,6 +13,8 @@ public interface MemberDAO {
 	int idCheck(MemberDTO eDTO) throws Exception;
 	int insertProfile(FileDTO eDTO) throws Exception;
 	
+	int updateInfo(MemberDTO dto) throws Exception;
+	
 	
 	
 	

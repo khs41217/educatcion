@@ -161,10 +161,16 @@ public class BoardController {
 		BoardDTO nDTO = boardService.nextPage(dto.getBoardIdx());
 		
 		model.addAttribute("list", detail.get(0));
-		model.addAttribute("pagePre",pDTO);
+		model.addAttribute("prePage",pDTO);
 		model.addAttribute("nextPage",nDTO);
 		model.addAttribute("cri", cri);
+		
+	}
 	
+	//정보수정
+	@RequestMapping(value="/modify")
+	public void modify() throws Exception {
+		
 		
 	}
 	

@@ -18,6 +18,8 @@ public class BoardDTO {
 	private String boardPublicFl = null; 
 	private Date boardWriteDate = null;
 	
+	private String fileOriginalName = null;
+	
 	public int getBoardIdx() {
 		return boardIdx;
 	}
@@ -79,6 +81,20 @@ public class BoardDTO {
 	}
 	public void setBoardPublicFl(String boardPublicFl) {
 		this.boardPublicFl = boardPublicFl;
+	}
+	
+	public String getFileOriginalName() {
+		return fileOriginalName;
+	}
+	public void setFileOriginalName(String fileOriginalName) {
+		this.fileOriginalName = fileOriginalName;
+	}
+	
+	@Override
+	public String toString() {
+		return "BoardDTO [boardIdx=" + boardIdx + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
+				+ ", boardContents=" + boardContents + ", boardViewCount=" + boardViewCount + ", fileIdx=" + fileIdx
+				+ ", boardWriteDate="+ boardWriteDate + "]";
 	}	
 	
 	

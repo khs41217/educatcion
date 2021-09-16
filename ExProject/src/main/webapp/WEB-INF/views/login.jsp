@@ -26,8 +26,10 @@
 <script src="resources/vendor/daterangepicker/daterangepicker.js"></script>
 <script src="resources/vendor/countdowntime/countdowntime.js"></script>
 <script src="resources/js/main.js"></script>
+
 <script>
 	function check(){
+	var result = request.Attribute("result");
 	var user_id = $('#id').val(); 
 	var user_pw = $('#pw').val(); 
 		if(user_id== ""){

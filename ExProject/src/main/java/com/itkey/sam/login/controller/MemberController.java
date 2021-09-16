@@ -38,13 +38,13 @@ public class MemberController {
 		return "login";
 	}
 	
-	@RequestMapping(value = "register")	//회원가입
+	@RequestMapping(value = "register", method = RequestMethod.GET)	//회원가입
 	public String memberRegister() throws Exception{
 		return "register";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "membersignup")	//회원가입 폼
+	@RequestMapping(value = "register", method = RequestMethod.POST)	//회원가입 폼
 	public void memberRegisterAction(MemberDTO eDTO, RedirectAttributes red, HttpServletResponse response, Model model, MultipartHttpServletRequest request) throws Exception{
 		MultipartFile multi = request.getFile("file");
 		String oldFileName = multi.getOriginalFilename();
@@ -104,6 +104,8 @@ public class MemberController {
 		 *  0 : 비밀번호 틀림
 		 *  1 : 성공
 		 */
+		
+		request.setAttribute("result",result);
 		String body = "";
 		if(result ==1 ) {
 			body = "<script>"
@@ -132,6 +134,7 @@ public class MemberController {
 		return "/modify";
 	}
 	
+	//유저 정보 수정
 	@RequestMapping(value="modify", method=RequestMethod.POST)
 	public String updateModify(MemberDTO dto, HttpSession session, Model model) throws Exception{
 		int result = memberService.updateInfo(dto);
@@ -143,6 +146,27 @@ public class MemberController {
 		}
 		session.invalidate();
 		return state;
+	}
+	
+	//로그아웃
+	@RequestMapping(value="/logout", method=RequestMethod.GET)
+	public String logout(HttpSession session) throws Exception{
+		session.invalidate();
+		return "redirect:/login";
+	}
+	
+	//회원 탈퇴
+	@RequestMapping(value = "/delUser", method = RequestMethod.GET)
+	public String getDelete(HttpSession session) throws Exception{
+		
+		MemberDTO dto = new MemberDTO();
+		String memberId = (String) session.getAttribute("user_id");
+		
+		dto.setBoardWriter(memberId);
+		
+		memberService.deleteMember(memberId);
+		
+		return "/login";
 	}
 	
 }

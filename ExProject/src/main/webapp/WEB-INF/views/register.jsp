@@ -28,6 +28,7 @@
 <script src="resources/js/main.js"></script>
 
 <script type="text/javascript">
+
 	/*핸드폰 번호 하이픈 정규식*/
 	function phoneNumber(){
 	$(document).on("keyup", "#boardWriterPhone", function(){
@@ -52,6 +53,7 @@
 		var useremail = document.getElementById('boardWriterEmail');	// 이메일
 		var checkemail = document.getElementById('checkEmail');	//	이메일체크
 	}
+	
 	/*회원가입 유효성 검사*/
 	function checkAll(){
 	 	//이메일 정규식
@@ -102,30 +104,24 @@
 				emial.focus();
 				return false;
 			}
-			if(emailPattern.tert(checkemail.value) == false){
+			if(emailPattern.test(checkemail.value) == false){
 				alert("이메일 형식이 올바르지 않습니다.")
 				checkemail.focus();
 				return false;
-			}	
-	}
-	//*--회원가입 유효성 검사--*//
-	
-	function check(){
-		var result = confirm("이대로 회원가입을 진행 하시겠습니까?");
-		
-		if(result){
+			}
 			
-			
-		} else{
-			
-		}
+			if(confirm("작성한 내용대로 가입이 진행됩니다. 계속하시겠습니까?")==true){
+				location.href="/sam/register";
+			} else{
+				location.href = "/sam/login";	
+			}
 	}
 
 </script>
 </head>
 
 <body>
-<form action= "membersignup" id= "resgisterform" method="post" enctype="multipart/form-data">
+<form action= "register" id= "resgisterform" method="post" enctype="multipart/form-data">
 	<div class="limiter animsition">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -140,7 +136,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" readonly>
 							<div class="input-group-btn">
-								<span class="fileUpload btn login100-form-btn"> <span class="upl" id="upload">업로드</span><input type="file" class="upload up" id="up" name="file" onchange="readURL(this);" />
+								<span class="fileUpload btn login100-form-btn"> <span class="upl" id="upload">업로드</span><input type="file"  accept=".jpg, .png" class="upload up" id="up" name="file" onchange="readURL(this);" />
 								</span>
 								<!-- btn-orange -->
 							</div>
@@ -179,7 +175,7 @@
 						</div>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter useremail">
-						<input class="input100" type="text" name="boardWriterEmail" id="boardWriterEmail" onkeyup="checkemail()" placeholder="이메일을 입력해주세요.">
+						<input class="input100" type="text" name="boardWriterEmail" id="boardWriterEmail" onkeyup="" placeholder="이메일을 입력해주세요.">
 						<span class="focus-input100" data-placeholder="&#xf15a;"></span>
 					</div>
 
@@ -189,7 +185,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn" onclick="return checkAll()">가입</button> <a href="login" class="login100-form-btn">취소</a>
+						<button type="submit" class="login100-form-btn" name="form1" onclick="checkAll()">가입</button> <a href="login" class="login100-form-btn">취소</a>
 					</div>
 				</div>
 			</div>

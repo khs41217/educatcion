@@ -1,10 +1,11 @@
 package com.itkey.sam.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
-import com.itkey.sam.paging.Criteria;
+import com.itkey.sam.util.Criteria;
 
 /**
  * Service for SAMPLE_BOARD_TB table : 게시판 정보
@@ -48,7 +49,7 @@ public interface BoardService {
 	 * @return 성공여부 (삭제된 데이터 개수)
 	 * @throws Exception
 	 */
-	public int delBoard(String keyId) throws Exception;
+	public int delBoard(int boardIdx) throws Exception;
 
 	
 	// 총 게시글 수 조회
@@ -79,8 +80,10 @@ public interface BoardService {
 	//파일이름
 	public FileDTO boardFileIdx(int fileIdx) throws Exception;
 	
+	public FileDTO getFileName(int fileIdx) throws Exception;
+	
 	//이전페이지
-	public BoardDTO pagePre(int boardIdx) throws Exception;
+	public BoardDTO prePage(int boardIdx) throws Exception;
 	
 	//다음페이지	
 	public BoardDTO nextPage(int boardIdx) throws Exception;
@@ -91,8 +94,8 @@ public interface BoardService {
 	
 	public int count() throws Exception;
 	
-	public String getFileName(int boardIdx) throws Exception;
-	
+//	//첨부파일 다운로드
+//	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception;
 	
 	
 	

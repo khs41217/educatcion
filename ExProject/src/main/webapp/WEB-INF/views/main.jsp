@@ -98,7 +98,7 @@ function setPerPageNumSelect(){
 			<div class="wrap-login100">
 				<div class="login100-form">
 					<c:if test="${user_id ne null }">
-						<div>${user_id} 님 어서오세요 <button type="button" class="btn btn-default" style="float:right; margin-top: -15px;" onclick=" ">로그아웃</button></div>
+						<div>${user_id} 님 어서오세요 <a href="/sam/logout" class="btn btn-default" style="float:right; margin-top: -15px;">로그아웃</a></div>
 					</c:if>
 					<div class="row panel-row">
 						<div class="col-sm-3">
@@ -150,7 +150,7 @@ function setPerPageNumSelect(){
 							<input type="text" class="form-control" id="" placeholder="문자열을 입력해주세요.">
 						</div>
 						<div class="col-sm-1 text-right">
-							<button type="button" class="btn btn-default btn-full">
+							<button type="button" class="btn btn-default btn-full" onclick="setSearchTypeSelect()">
 								<i class="fas fa-search"></i> 검색
 							</button>
 						</div>

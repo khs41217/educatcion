@@ -1,10 +1,12 @@
 package com.itkey.sam.board.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
-import com.itkey.sam.paging.Criteria;
+import com.itkey.sam.util.Criteria;
 
 public interface BoardDAO {
 
@@ -44,7 +46,7 @@ public interface BoardDAO {
 	 * @return 성공여부 (삭제된 데이터 개수)
 	 * @throws Exception
 	 */
-	public int deleteBoard(String keyId) throws Exception;
+	public int deleteBoard(int boardIdx) throws Exception;
 	
 	//전체 게시물 수 조회
 	public int totalContent()throws Exception;
@@ -77,7 +79,9 @@ public interface BoardDAO {
 	//파일이름
 	public FileDTO boardFileIdx(int fileIdx) throws Exception;
 
-	public BoardDTO pagePre(int boardIdx) throws Exception;
+	public FileDTO getFileName(int fileIdx) throws Exception;
+
+	public BoardDTO prePage(int boardIdx) throws Exception;
 	
 	public BoardDTO nextPage(int boardIdx) throws Exception;
 	
@@ -87,7 +91,9 @@ public interface BoardDAO {
 	
 	public int count() throws Exception;
 	
-	public String getFileName(int boardIdx) throws Exception;
+	
+	//첨부파일 다운로드
+//	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception;
 	
 	
 }

@@ -1,4 +1,4 @@
-package com.itkey.sam.paging;
+package com.itkey.sam.util;
 
 import org.springframework.web.util.UriComponentsBuilder;
 

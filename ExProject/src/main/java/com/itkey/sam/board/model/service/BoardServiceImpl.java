@@ -1,6 +1,7 @@
 package com.itkey.sam.board.model.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.dao.BoardDAO;
 import com.itkey.sam.file.dto.FileDTO;
-import com.itkey.sam.paging.Criteria;
+import com.itkey.sam.util.Criteria;
 
 @Service("boardService")
 public class BoardServiceImpl implements BoardService {
@@ -55,9 +56,9 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	};
 
-	public int delBoard(String keyId) throws Exception {
-		logger.debug("* [SERVICE] Input  ◀ (Controller) : " + keyId);
-		int result = dao.deleteBoard(keyId);
+	public int delBoard(int boardIdx) throws Exception {
+		logger.debug("* [SERVICE] Input  ◀ (Controller) : " + boardIdx);
+		int result = dao.deleteBoard(boardIdx);
 		logger.debug("* [SERVICE] Output ◀ (DAO) : " + result);
 		return result;
 	}
@@ -125,9 +126,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
-	public BoardDTO pagePre(int boardIdx) throws Exception {
+	public BoardDTO prePage(int boardIdx) throws Exception {
 		logger.debug("* [SERVICE] Output ◀ (DAO) : "+ boardIdx);
-		BoardDTO state = dao.pagePre(boardIdx);
+		BoardDTO state = dao.prePage(boardIdx);
 		logger.debug("* [SERVICE] Input  ◀ (Controller)"+ state);		
 		return state;
 	}
@@ -156,10 +157,17 @@ public class BoardServiceImpl implements BoardService {
 		int result = dao.count();
 		return result;
 	}
-	
-	public String getFileName(int boardIdx) throws Exception{
-		String name = dao.getFileName(boardIdx);
-		return name;
+
+	@Override
+	public FileDTO getFileName(int fileIdx) throws Exception {
+		return dao.getFileName(fileIdx);
 	}
+
+//	@Override
+//	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+
 	
 }

@@ -28,9 +28,21 @@
 <script src="resources/vendor/daterangepicker/daterangepicker.js"></script>
 <script src="resources/vendor/countdowntime/countdowntime.js"></script>
 <script src="resources/js/main.js"></script>
+
+<script>
+	function deleteChk(){
+		var chk = confirm("현재 글을 삭제 하시겠습니까?(삭제후 복원이 불가능합니다.)")
+		if(chk){
+			location.href='/sam/delete?boardIdx=${list.boardIdx}';	
+		}else{
+			return false;
+		}
+	}
+</script>
 </head>
 
 <body>
+<form>
 	<div class="limiter animsition">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -46,7 +58,7 @@
 						</div>
 						<div class="col-sm-8 col-mid">
 							<div class="well well-sm">
-								<button class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${prePage.boardIdx}';">${prePage.boardTitle}</button>
+								<button type="button" class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${prePage.boardIdx}';">${prePage.boardTitle}</button>
 							</div>
 						</div>
 						<div class="col-sm-2 col-footer">
@@ -76,7 +88,7 @@
 									</tr>
 									<tr>
 										<th>첨부파일</th>
-										<td colspan="3">${fileName}</td>
+										<td colspan="3"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -90,7 +102,8 @@
 						</div>
 						<div class="col-sm-8 col-mid">
 							<div class="well well-sm">
-								<button class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${nextPage.boardIdx}';">${nextPage.boardTitle}</button>
+								<button type="button" class="btn btn-link" onclick="location.href='/sam/detail?boardIdx=${nextPage.boardIdx}';">${nextPage.boardTitle}</button>
+							
 							</div>
 						</div>
 						<div class="col-sm-2 col-footer">
@@ -99,20 +112,25 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full" onclick="location.href='main';">목록</button>
+							<button type="button" class="btn btn-default btn-full" onclick="location.href='/sam/main';">목록</button>
 						</div>
 						<div class="col-sm-6"></div>
+						<c:if test="${user_id eq list.boardWriter}">
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full" onclick="location.href='/sam/update?boardIdx=${list.boardIdx}';">수정</button>
+							<button type="button"class="btn btn-default btn-full" onclick="location.href='/sam/update?boardIdx=${list.boardIdx}';">수정</button>
 						</div>
+						</c:if>
+						<c:if test="${user_id eq list.boardWriter}">
 						<div class="col-sm-2">
-							<button class="btn btn-default btn-full" onclick="deleteChk()">삭제</button>
+							<button type="button" class="btn btn-default btn-full" onclick="deleteChk()">삭제</button>
 						</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</form>
 	<div id="dropDownSelect1"></div>
 </body>
 

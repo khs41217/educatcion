@@ -20,7 +20,7 @@
 
 	<!-- paging 처리용 -->
 	<select id="selectBoardCount" parameterType="BoardDTO" resultType="int">
-		SELECT count(1) FROM SAMPLE_BOARD_TB
+		SELECT count(1) FROM SAMPLE_BOARD_TB WHERE BOARD_DEL_YN = 'N'
 		<where>
 			<if test="boardIdx       !=null and boardIdx       !=''"><![CDATA[ AND BOARD_IDX         = #{boardIdx}       ]]></if>
 			<if test="boardWriter    !=null and boardWriter    !=''"><![CDATA[ AND BOARD_WRITER      = #{boardWriter}    ]]></if>
@@ -73,19 +73,19 @@
 		WHERE BOARD_IDX = #{boardIdx}
 	</update>
 
-	<!-- DELETE SAMPLE_BOARD_TB -->
-	<delete id="deleteBoard" parameterType="String">
+	<!-- 게시물 삭제 -->
+	<delete id="deleteBoard" parameterType="int">
 		DELETE FROM SAMPLE_BOARD_TB WHERE BOARD_IDX = #{boardIdx}
 	</delete>
 	
 	<!-- 총 게시물 수 조회 -->
 	<select id="countTotalContent" resultType="int">
-		SELECT  COUNT(*) FROM SAMPLE_BOARD_TB	
+		SELECT  COUNT(*) FROM SAMPLE_BOARD_TB WHERE BOARD_DEL_YN = 'N'
 	</select>
 	
 	<!--  총 회원가입 수 조회 -->
 	<select id="countTotalMember" resultType="int">
-		SELECT  COUNT(*) FROM SAMPLE_WRITER_TB	
+		SELECT  COUNT(*) FROM SAMPLE_WRITER_TB WHERE DEL_YN = 'N'	
 	</select>
 	
 	<!--  당일 게시글 수 -->
@@ -157,13 +157,13 @@
 			FILE_IDX = #{fileIdx} 
 	</select>
 	
-	<select id="getfileName" parameterType="int" resultType="FileDTO">
-		SELECT 
-			*
-		FROM 
-			sample_file_tb 
+	<select id="getFileName" parameterType="int" resultType="FileDTO">
+		SELECT
+			FILE_ORIGINAL_NAME
+		FROM
+			sample_file_tb f 
 		WHERE
-			FILE_IDX = #{fileIdx} 
+			f.file_idx = #{fileIdx}
 	</select>
 	
 	<select id="boardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
@@ -172,7 +172,7 @@
 		 FROM 
 			sample_board_tb 
 		 WHERE 
-		 	BOARD_IDX= #{boardIdx};
+		 	BOARD_IDX= #{boardIdx}
 	</select>
 	
 	<select id="getBoard" parameterType="BoardDTO" resultType="BoardDTO">
@@ -223,7 +223,7 @@
 		FROM
 			sample_board_tb
 		WHERE 
-			BOARD_IDX > 0
+			BOARD_IDX > 0 AND BOARD_DEL_YN = 'N'
 		<include refid="searchCondition"></include>	
 		ORDER BY
 			BOARD_IDX DESC
@@ -236,7 +236,7 @@
 		FROM 
 		 	sample_board_tb
 		WHERE
-			BOARD_IDX > 0
+			BOARD_IDX > 0 AND BOARD_DEL_YN = 'N'
 		<include refid="searchCondition"></include>
 	</select>
 	
@@ -249,6 +249,14 @@
 		
 	</select>
 	
+	<select id="selectFileInfo" parameterType="int" resultType="map">
+		SELECT
+			*
+		FROM
+			sample_file_tb
+		WHERE 
+			file_idx = ${fileIdx}
+	</select>
 	
 	
 	<sql id="searchCondition">

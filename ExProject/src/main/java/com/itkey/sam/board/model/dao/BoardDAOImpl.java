@@ -1,6 +1,8 @@
 package com.itkey.sam.board.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
-import com.itkey.sam.paging.Criteria;
+import com.itkey.sam.util.Criteria;
 
 @Repository("boardDAO")
 public class BoardDAOImpl implements BoardDAO {
@@ -49,9 +51,9 @@ public class BoardDAOImpl implements BoardDAO {
 		return result;
 	};
 
-	public int deleteBoard(String keyId) throws Exception {
-		logger.debug("* [DAO] Input  ◀ (Service) : " + keyId.toString());
-		int result = sqlSession.delete("sample.deleteBoard", keyId);
+	public int deleteBoard(int boardIdx) throws Exception {
+		logger.debug("* [DAO] Input  ◀ (Service) : " + boardIdx);
+		int result = sqlSession.delete("sample.deleteBoard", boardIdx);
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;
 	}
@@ -104,7 +106,7 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public BoardDTO pagePre(int boardIdx) throws Exception {
+	public BoardDTO prePage(int boardIdx) throws Exception {
 		logger.debug("* [DAO] Input  ◀ (Service) : "+ boardIdx);
 		BoardDTO state = sqlSession.selectOne("prePage",boardIdx);
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + state);
@@ -140,13 +142,20 @@ public class BoardDAOImpl implements BoardDAO {
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;
 	}
-	
-	public String getFileName(int boardIdx) throws Exception{
-		logger.debug("* [DAO] Input  ◀ (Service) : "+ boardIdx);
-		String name = sqlSession.selectOne("getFileName", boardIdx); 
-		logger.debug("* [DAO] Output ◀ (Mybatis) : " + name);
-		return name;
+
+	@Override
+	public FileDTO getFileName(int fileIdx) throws Exception {
+		
+		return sqlSession.selectOne("getFileName", fileIdx);
 	}
+
+	
+	//첨부파일 다운로드
+//	@Override
+//	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception {
+//		return sqlSession.selectOne("selectFileInfo", fileIdx);
+//	}
+	
 	
 	
 //	public int insertFile(FileDTO fDTO) throws Exception {

@@ -1,14 +1,14 @@
 package com.itkey.sam.board.controller;
 
-import java.awt.print.Pageable;
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,8 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.service.BoardService;
 import com.itkey.sam.file.dto.FileDTO;
-import com.itkey.sam.paging.Criteria;
-import com.itkey.sam.paging.PageMaker;
+import com.itkey.sam.util.Criteria;
+import com.itkey.sam.util.PageMaker;
 
 @Controller
 public class BoardController {
@@ -157,8 +157,14 @@ public class BoardController {
 	public void detail(BoardDTO dto, Model model, @ModelAttribute("cri") Criteria cri) throws Exception{
 		List<BoardDTO> detail = boardService.getBoardList(dto);
 		
-		BoardDTO pDTO = boardService.pagePre(dto.getBoardIdx());
+		BoardDTO pDTO = boardService.prePage(dto.getBoardIdx());
 		BoardDTO nDTO = boardService.nextPage(dto.getBoardIdx());
+		
+//		List<Map<String, Object>> fDTO = boardService.selectFileInfo(detail.get(0).getFileIdx());
+		
+		
+//		model.addAttribute("file", fDTO);
+		
 		
 		model.addAttribute("list", detail.get(0));
 		model.addAttribute("prePage",pDTO);
@@ -167,54 +173,39 @@ public class BoardController {
 		
 	}
 	
-	//정보수정
-	@RequestMapping(value="/modify")
-	public void modify() throws Exception {
+	//게시물 수정
+	@RequestMapping(value="/updateContent", method = RequestMethod.POST)
+	public String updateBoard(BoardDTO eDTO) throws Exception{
 		
+		boardService.chgBoard(eDTO);
 		
+		return "redirect:/detail?boardIdx=" + eDTO.getBoardIdx();
 	}
 	
 	
+	//게시물 삭제
+	@RequestMapping(value= "/delete", method = RequestMethod.GET)
+	public String deleteContents(@RequestParam("boardIdx") int boardIdx) throws Exception{
+		
+		boardService.delBoard(boardIdx);
+		return "main";
+	}
 	
-//	@RequestMapping(value="write", method=RequestMethod.POST)	// 새 게시글 작성
-//	public String addWrite(BoardDTO eDTO, HttpSession session, MultipartHttpServletRequest multi, Model model) throws Exception	{
-//		System.out.println(eDTO.getBoardContents());
-//		//파일 업로드
-//		MultipartFile mf = multi.getFile("file");
+	//첨부파일 다운로드
+//	@RequestMapping(value = "fileDown")
+//	public void fileDown(BoardDTO dto, HttpServletResponse response) throws Exception{
+//		List<Map<String, Object>> resultMap = boardService.selectFileInfo(dto.getFileIdx());
+//		String oriFileName = (String) resultMap.get("FILE_ORIGINAL_NAME");
+//		String oldFileName = (String) resultMap.get("FILE_CHANGED_NAME");
 //		
-//		String oldFileName = mf.getOriginalFilename();
+//		byte fileByte[] =org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources\\resources"+oriFileName));
 //		
-//		String changeFileName= oldFileName + UUID.randomUUID();
-//		
-//		String path = "C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources\\resources";
-//		
-//		FileDTO fDTO = new FileDTO();
-//		
-//		fDTO.setFileOriginalName(oldFileName);
-//		fDTO.setFileChangedName(changeFileName);
-//		fDTO.setFilePath(path);
-//		
-//		String safeFile = path + System.currentTimeMillis() + oldFileName;
-//		
-//		try {
-//			boardService.addFile(fDTO);
-//			mf.transferTo(new File(safeFile));
-//			
-//			Date today = new Date();
-//			eDTO.setBoardWriteDate(today);
-//			model.addAttribute("list", eDTO);
-//			eDTO.setFileIdx(fDTO.getFileIdx());
-//			boardService.addBoard(eDTO);
-//			
-//			
-//		} catch(IllegalStateException e) {
-//			e.printStackTrace();
-//		} catch(IOException e) {
-//			e.printStackTrace();			
-//		}
-//		
-//		boardService.findFileIdx(fDTO);
-//		
-//		return "redirect:/main";
+//		response.setContentType("application/octet-stream");
+//		response.setContentLength(fileByte.length);
+//		response.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(oriFileName, "UTF-8")+"\";");
+//		response.getOutputStream().write(fileByte);
+//		response.getOutputStream().flush();
+//		response.getOutputStream().close();
 //	}
+	
 }

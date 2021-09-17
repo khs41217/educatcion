@@ -31,7 +31,7 @@ public class BoardDAOImpl implements BoardDAO {
 	};
 	
 	public int selectBoardCount(BoardDTO eDTO) throws Exception {
-		logger.debug("* [DAO] Input  ◀ (Service) : " + eDTO.toString());
+		logger.debug("* [DAO] Input  ◀ (Service) : ");
 		int result = sqlSession.selectOne("sample.selectBoardCount", eDTO);
 		logger.debug("* [DAO] Output ◀ (Mybatis) : " + result);
 		return result;

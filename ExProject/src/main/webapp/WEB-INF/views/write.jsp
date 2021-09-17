@@ -33,7 +33,10 @@
 		var writer = document.getElementById('boardWriter'); 
 		var contents = document.getElementById('boardContents');
 		var publicFl = $('input:radio[name="radio"]:checked').val( ) ;
-		$('#hidden').val(boardPublicFl);
+		
+		console.log(publicFl)
+		$('#hidden').val(publicFl);
+		
 		if(title.value == ''){
 			alert("제목을 입력해 주세요");
 			title.focus();
@@ -44,7 +47,6 @@
 			contents.focus();
 			return false;
 		}	
-		return false;
 	}
 </script>
 
@@ -73,9 +75,9 @@
 												<input type="text" class="form-control wirte-form" id="boardWriter" name="boardWriter" value="${user_id}" disabled="disabled">
 											</td>
 										<th>공개여부</th>					
-											<td>										
-												<input type="radio" name="radio" value="Y" class="" checked="checked"/>공개
-												<input type="radio" name="radio" value="N" class="" />비공개
+											<td>								
+												<input type="radio" name="radio" id="radio" value="Y" class="radio" checked="checked"/>공개
+												<input type="radio" name="radio" id="radio" value="N" class="radio" />비공개
 												<input type="hidden" name="boardPublicFl" id="hidden"/>
 											</td>			
 

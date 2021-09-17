@@ -137,6 +137,8 @@ public class BoardController {
 		
 			dto.setFileIdx(fDto.getFileIdx());
 			boardService.addBoard(dto);
+			System.out.println(dto.toString());
+			logger.debug("* [CONTROLLER] Input ◀ (Service) : " + dto.toString());
 		
 		}catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -191,6 +193,7 @@ public class BoardController {
 		return "main";
 	}
 	
+
 	//첨부파일 다운로드
 //	@RequestMapping(value = "fileDown")
 //	public void fileDown(BoardDTO dto, HttpServletResponse response) throws Exception{

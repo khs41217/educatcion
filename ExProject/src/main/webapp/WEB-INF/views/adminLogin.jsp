@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-<title>ITKey 로그인</title>
+<title>ITKey 관리자 로그인</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" href="resources/images/icons/favicon.ico" />
@@ -33,11 +33,11 @@
 	var user_id = $('#id').val(); 
 	var user_pw = $('#pw').val(); 
 		if(user_id == ""){
-			alert("아이디를 확인해주세요");
+			alert("아이디를 입력해주세요");
 			user_id.focus();
 			return false;
 		} else if(user_pw == ""){
-			alert("비밀번호를 확인해주세요");
+			alert("비밀번호를 입력해 주세요");
 			user_pw.focus();
 			return false;
 		} else{
@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-<form action="loginMember" id ="loginform" name ="loginform"method="post">
+<form action="adminLogin" id ="loginform" name ="loginform"method="post">
 	<div class="limiter animsition">
 		<div class="container-login100">
 			<div class="wrap-login100">
@@ -55,26 +55,21 @@
 					<div class="text-center" style="width: 100%">
 						<img src="resources/images/logo.png" width="50%">
 					</div>
-					<span class="login100-form-title p-b-34 p-t-27"> ITKey Edu<br>Project Login
+					<span class="login100-form-title p-b-34 p-t-27"> ITKey Edu<br>관리자 로그인
 					</span>					
 					<div class="wrap-input100 validate-input" data-validate="Enter username">
-						<input class="input100" id="id" type="text" name="username" placeholder="ID">
+						<input class="input100" id="id" type="text" name="adminUsername" placeholder="ID">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
-					
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" id="pw" type="password" name="pass" placeholder="비밀번호">
+						<input class="input100" id="pw" type="password" name="adminPass" placeholder="비밀번호">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
-
 					<div class="contact100-form-checkbox">
-						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember_me">
-						<label class="label-checkbox100" for="ckb1"> ID 저장 </label>
 					</div>
-
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn" onclick="return check()">로그인</button> <a href="register" class="login100-form-btn">회원가입</a>
-						<a href="adminLogin" class="login100-form-btn">관리자 로그인</a>
+						<button type="submit" class="login100-form-btn">로그인</button> 
+						<a href="login" class="login100-form-btn">돌아가기</a>
 					</div>
 				</div>
 			</div>

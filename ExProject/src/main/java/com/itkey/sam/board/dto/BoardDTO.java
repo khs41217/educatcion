@@ -90,12 +90,5 @@ public class BoardDTO {
 		this.fileOriginalName = fileOriginalName;
 	}
 	
-	@Override
-	public String toString() {
-		return "BoardDTO [boardIdx=" + boardIdx + ", boardWriter=" + boardWriter + ", boardTitle=" + boardTitle
-				+ ", boardContents=" + boardContents + ", boardViewCount=" + boardViewCount + ", fileIdx=" + fileIdx
-				+ ", boardWriteDate="+ boardWriteDate + "]";
-	}	
-	
 	
 }

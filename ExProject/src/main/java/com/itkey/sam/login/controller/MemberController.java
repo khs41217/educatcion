@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itkey.sam.admin.dto.AdminDTO;
 import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.member.service.MemberService;
@@ -167,6 +168,34 @@ public class MemberController {
 		memberService.deleteMember(memberId);
 		
 		return "/login";
+	}
+	
+	@RequestMapping(value= "/adminLogin", method = RequestMethod.GET)
+	public String adminLogin() throws Exception{
+		return "/adminLogin";
+	}
+	
+	//관리자 로그인
+	@RequestMapping(value= "/adminLogin", method = RequestMethod.POST)
+	public void adminLoginAction(Model model, HttpServletRequest request, HttpServletResponse response, AdminDTO dto) throws Exception{
+		response.setCharacterEncoding("text/html charset=\"UTF_8\"");
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		int result = 0;// 관리자 로그인 서비스
+		
+		String body="";
+			
+			if(result == 1) {
+				body ="<script>"
+						+"location.href='/sam/adminBoard'"
+						+"</script>";
+				out.print(body);
+				session.setAttribute("user_id", dto);
+			} 
+		
+
+				
+		
 	}
 	
 }

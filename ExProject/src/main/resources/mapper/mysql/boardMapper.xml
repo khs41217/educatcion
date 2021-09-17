@@ -258,7 +258,7 @@
 			file_idx = ${fileIdx}
 	</select>
 	
-	
+	<!-- 데이터 검색 -->
 	<sql id="searchCondition">
 		<if test="searchType != null">
 			<if test="searchType == 'c'.toString()">

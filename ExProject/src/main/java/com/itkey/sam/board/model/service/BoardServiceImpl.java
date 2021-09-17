@@ -29,7 +29,7 @@ public class BoardServiceImpl implements BoardService {
 	@Resource(name="boardDAO") BoardDAO dao;
 
 	public List<BoardDTO> getBoardList(BoardDTO eDTO) throws Exception {
-		logger.debug("* [SERVICE] Input  ◀ (Controller) : " + eDTO.toString());
+		logger.debug("* [SERVICE] Input  ◀ (Controller) : getboardList");
 		List<BoardDTO> returnList = dao.selectBoardList(eDTO);
 		logger.debug("* [SERVICE] Output ◀ (DAO) : " + returnList.toString());
 		return returnList;

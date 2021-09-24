@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.util.Criteria;
 
 public interface BoardDAO {
@@ -91,6 +92,7 @@ public interface BoardDAO {
 	
 	public int count() throws Exception;
 	
+	List<MemberDTO> memberList(Criteria cri) throws Exception;
 	
 	//첨부파일 다운로드
 //	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception;

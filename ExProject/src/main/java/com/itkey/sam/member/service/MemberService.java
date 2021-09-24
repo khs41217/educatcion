@@ -1,7 +1,11 @@
 package com.itkey.sam.member.service;
 
+import java.util.List;
+
+import com.itkey.sam.admin.dto.AdminDTO;
 import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
+import com.itkey.sam.util.Criteria;
 
 public interface MemberService {
 	
@@ -14,7 +18,9 @@ public interface MemberService {
 	public int insertProfile(FileDTO eDTO) throws Exception;
 	
 	public int updateInfo(MemberDTO dto) throws Exception;
+	public int adminLogin(AdminDTO dto) throws Exception;
 	
+	public void adminDelete(MemberDTO dto) throws Exception;
 	
 
 }

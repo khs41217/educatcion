@@ -3,102 +3,46 @@ package com.itkey.sam.admin.dto;
 import java.util.Date;
 
 public class AdminDTO {
-
-	private int boardWriterIdx			= 0;
-	private int fileIdx					= 0;
+	
+	private int adminIdx		= 0;
 	
 	
-	private String chatId				= null;
-	private String boardWriter			= null;
-	private String boardWriterPw		= null;
-	private String boardWriterName 		= null;
-	private String boardWriterPhone		= null;
-	private String boardWriterEmail		= null;
-	private Date BoardWriterJoinDate	= null;
-	private String salt					= null;
-	private String sessionId 			= null;
-	private String delYn				= null;
-	public int getBoardWriterIdx() {
-		return boardWriterIdx;
+	private String adminId		= null;
+	private String adminName	= null;
+	private String adminPw		= null;
+	private Date adminJoinDate	= null;
+	
+	
+	public int getAdminIdx() {
+		return adminIdx;
 	}
-	public void setBoardWriterIdx(int boardWriterIdx) {
-		this.boardWriterIdx = boardWriterIdx;
+	public void setAdminIdx(int adminIdx) {
+		this.adminIdx = adminIdx;
 	}
-	public int getFileIdx() {
-		return fileIdx;
+	public String getAdminId() {
+		return adminId;
 	}
-	public void setFileIdx(int fileIdx) {
-		this.fileIdx = fileIdx;
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
 	}
-	public String getChatId() {
-		return chatId;
+	public String getAdminName() {
+		return adminName;
 	}
-	public void setChatId(String chatId) {
-		this.chatId = chatId;
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
-	public String getBoardWriter() {
-		return boardWriter;
+	public String getAdminPw() {
+		return adminPw;
 	}
-	public void setBoardWriter(String boardWriter) {
-		this.boardWriter = boardWriter;
+	public void setAdminPw(String adminPw) {
+		this.adminPw = adminPw;
 	}
-	public String getBoardWriterPw() {
-		return boardWriterPw;
+	public Date getAdminJoinDate() {
+		return adminJoinDate;
 	}
-	public void setBoardWriterPw(String boardWriterPw) {
-		this.boardWriterPw = boardWriterPw;
+	public void setAdminJoinDate(Date adminJoinDate) {
+		this.adminJoinDate = adminJoinDate;
 	}
-	public String getBoardWriterName() {
-		return boardWriterName;
-	}
-	public void setBoardWriterName(String boardWriterName) {
-		this.boardWriterName = boardWriterName;
-	}
-	public String getBoardWriterPhone() {
-		return boardWriterPhone;
-	}
-	public void setBoardWriterPhone(String boardWriterPhone) {
-		this.boardWriterPhone = boardWriterPhone;
-	}
-	public String getBoardWriterEmail() {
-		return boardWriterEmail;
-	}
-	public void setBoardWriterEmail(String boardWriterEmail) {
-		this.boardWriterEmail = boardWriterEmail;
-	}
-	public Date getBoardWriterJoinDate() {
-		return BoardWriterJoinDate;
-	}
-	public void setBoardWriterJoinDate(Date boardWriterJoinDate) {
-		BoardWriterJoinDate = boardWriterJoinDate;
-	}
-	public String getSalt() {
-		return salt;
-	}
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-	public String getSessionId() {
-		return sessionId;
-	}
-	public void setSessionId(String sessionId) {
-		this.sessionId = sessionId;
-	}
-	public String getDelYn() {
-		return delYn;
-	}
-	public void setDelYn(String delYn) {
-		this.delYn = delYn;
-	}
-	@Override
-	public String toString() {
-		return "AdminDTO [" + boardWriterIdx + " / " + fileIdx + " / " + chatId
-				+ " / " + boardWriter + " / " + boardWriterPw + " / "
-				+ boardWriterName + " / " + boardWriterPhone + " / " + boardWriterEmail
-				+ " / " + BoardWriterJoinDate + " / " + salt + " / " + sessionId
-				+ " / " + delYn + "]";
-	}
-
 	
 	
 }

@@ -2,13 +2,11 @@ package com.itkey.sam.board.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -27,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.service.BoardService;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.util.Criteria;
 import com.itkey.sam.util.PageMaker;
 
@@ -51,7 +50,6 @@ public class BoardController {
 		// Logger
 		logger.debug("Board List Page Response");
 		
-
 		//현재 페이지 게시물
 		List<BoardDTO> boardList = boardService.pageList(cri);
 		
@@ -62,8 +60,6 @@ public class BoardController {
 		System.out.println("끝 페이지" + pageMaker.getEndPage());
 		System.out.println("시작 페이지" + pageMaker.getStartPage());
 ////////////////////////////////////////////////////////////////////////////////
-		
-		
 		
 		ModelAndView mv = new ModelAndView("main");
 
@@ -146,13 +142,10 @@ public class BoardController {
 			e.printStackTrace();
 		}
 		
-
 		boardService.fileName(fDto);
-		
 		
 		return "redirect:/main";
 	}
-
 	
 	//게시글 상세보기
 	@RequestMapping(value="/detail")
@@ -160,19 +153,15 @@ public class BoardController {
 		List<BoardDTO> detail = boardService.getBoardList(dto);
 		
 		BoardDTO pDTO = boardService.prePage(dto.getBoardIdx());
-		BoardDTO nDTO = boardService.nextPage(dto.getBoardIdx());
-		
+		BoardDTO nDTO = boardService.nextPage(dto.getBoardIdx());	
 //		List<Map<String, Object>> fDTO = boardService.selectFileInfo(detail.get(0).getFileIdx());
 		
-		
 //		model.addAttribute("file", fDTO);
-		
 		
 		model.addAttribute("list", detail.get(0));
 		model.addAttribute("prePage",pDTO);
 		model.addAttribute("nextPage",nDTO);
 		model.addAttribute("cri", cri);
-		
 	}
 	
 	//게시물 수정
@@ -184,7 +173,6 @@ public class BoardController {
 		return "redirect:/detail?boardIdx=" + eDTO.getBoardIdx();
 	}
 	
-	
 	//게시물 삭제
 	@RequestMapping(value= "/delete", method = RequestMethod.GET)
 	public String deleteContents(@RequestParam("boardIdx") int boardIdx) throws Exception{
@@ -192,23 +180,83 @@ public class BoardController {
 		boardService.delBoard(boardIdx);
 		return "main";
 	}
-	
 
-	//첨부파일 다운로드
-//	@RequestMapping(value = "fileDown")
-//	public void fileDown(BoardDTO dto, HttpServletResponse response) throws Exception{
-//		List<Map<String, Object>> resultMap = boardService.selectFileInfo(dto.getFileIdx());
-//		String oriFileName = (String) resultMap.get("FILE_ORIGINAL_NAME");
-//		String oldFileName = (String) resultMap.get("FILE_CHANGED_NAME");
-//		
-//		byte fileByte[] =org.apache.commons.io.FileUtils.readFileToByteArray(new File("C:\\Users\\USER\\git\\educatcion\\ExProject\\src\\main\\webapp\\resources\\resources"+oriFileName));
-//		
-//		response.setContentType("application/octet-stream");
-//		response.setContentLength(fileByte.length);
-//		response.setHeader("Content-Disposition",  "attachment; fileName=\""+URLEncoder.encode(oriFileName, "UTF-8")+"\";");
-//		response.getOutputStream().write(fileByte);
-//		response.getOutputStream().flush();
-//		response.getOutputStream().close();
-//	}
+	
+	@RequestMapping(value="adminMain")
+	public String adminboard(BoardDTO dto, Model model, Criteria cri) throws Exception{
+		ModelAndView  mv = new ModelAndView("adminMain");
+		List<BoardDTO> adminBoardList = boardService.getBoardList(dto);
+		int count = boardService.count();
+		model.addAttribute("List", adminBoardList);
+		
+		List<BoardDTO> boards = boardService.pageList(cri);
+		PageMaker pageMaker = new PageMaker(cri);
+		int totalCount = boardService.getTotalCount(cri);
+		
+		pageMaker.setTotalCount(totalCount);
+	
+		model.addAttribute("pageNum", count);
+		
+		int totalContent = boardService.countTotalContent();
+		model.addAttribute("totalContent", totalContent);
+		
+		
+		int totalMember = boardService.countTotalMember();
+		model.addAttribute("totalMember", totalMember);
+		
+		//오늘 게시물 
+		int todayContent = boardService.todayContent();
+		model.addAttribute("todayContent", todayContent);
+		
+		//오늘 가입자 수
+		int todayUser = boardService.todayMember();
+		model.addAttribute("todayMember" , todayUser);
+		
+		
+		model.addAttribute("list", boards);
+		model.addAttribute("pageNum", count);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/adminMain";
+		
+	}
+	
+	//관리자 회원관리
+	@RequestMapping(value = "/adminMember")
+	public String adminUser(BoardDTO dto, Model model, MemberDTO mDto, Criteria cri) throws Exception {
+		
+		ModelAndView mv = new ModelAndView("adminMember");
+
+		/*List<UserDTO> adminBoardList = userService.getUserList(uDto);*/
+		/*
+		model.addAttribute("list", adminBoardList);*/
+		
+		List<MemberDTO> member = boardService.memberList(cri);
+		PageMaker pageMaker = new PageMaker(cri);
+		int totalCount = boardService.getTotalCount(cri);
+		
+		pageMaker.setTotalCount(totalCount);
+	
+		int count = boardService.count();
+		model.addAttribute("pageNum", count);
+		
+		model.addAttribute("list", member);
+		model.addAttribute("pageMaker", pageMaker);
+
+
+		//총 가입 유저수
+		int totalMember = boardService.countTotalMember();
+		model.addAttribute("totalUser", totalMember);
+		
+		//오늘 게시물 
+		int todayContent = boardService.todayContent();
+		model.addAttribute("todayContent", todayContent);
+		
+		//오늘 가입자 수
+		int todayMember = boardService.todayMember();
+		model.addAttribute("todayMember", todayMember);
+	
+		return "/adminMember";
+	}
 	
 }

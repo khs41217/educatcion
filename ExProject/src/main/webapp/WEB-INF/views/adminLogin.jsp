@@ -58,11 +58,11 @@
 					<span class="login100-form-title p-b-34 p-t-27"> ITKey Edu<br>관리자 로그인
 					</span>					
 					<div class="wrap-input100 validate-input" data-validate="Enter username">
-						<input class="input100" id="id" type="text" name="adminUsername" placeholder="ID">
+						<input class="input100" id="adminId" type="text" name="adminId" placeholder="ID">
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input class="input100" id="pw" type="password" name="adminPass" placeholder="비밀번호">
+						<input class="input100" id="adminPw" type="password" name="adminPw" placeholder="비밀번호">
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
 					</div>
 					<div class="contact100-form-checkbox">

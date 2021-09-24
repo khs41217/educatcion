@@ -102,39 +102,6 @@
 		DATE_FORMAT(BOARD_WRITER_JOIN_DATE, "%Y-%m-%d") = CURDATE()
 	</select>
 	
-	<!-- 파일 업로드 -->
-<!-- 
- 	<insert id="insertFile" parameterType="FileDTO">
-		INSERT INTO sample_file_tb
-			( FILE_ORIGINAL_NAME
-			, FILE_CHANGED_NAME
-			, FILE_PATH
-		) values(
-			#{fileOriginalName}
-			, #{fileChangedName}
-			, #{filePath}
-		)
-	<selectKey resultType="int" keyProperty="fileIdx" order="AFTER"><![CDATA[ SELECT LAST_INSERT_ID() ]]></selectKey>
-	</insert>
-	
-	<select id="findFileIdx" parameterType="FileDTO" resultType="FileDTO">
-		SELECT
-		*
-		FROM
-			sample_file_tb
-		WHERE
-			FILE_IDX = #{fileIdx}
-	</select>
-	
-	<select id="findBoardFileIdx" parameterType="BoardDTO" resultType="BoardDTO">
-		SELECT
-		*
-		FROM
-			sample_board_tb
-		WHERE
-			BOARD_IDX = #{boardIdx}
-	</select>
- -->
  	<insert id="insertFile" parameterType="FileDTO">
 		INSERT INTO sample_file_tb
 			(	FILE_ORIGINAL_NAME
@@ -196,6 +163,7 @@
 		LIMIT 
 			1  
 	</select>
+	
 	<!-- 다음글 -->
 	<select id="nextPage" resultType="BoardDTO">
 		SELECT 
@@ -230,7 +198,8 @@
 		LIMIT
 			#{pageStart}, #{perPageNum}
 	</select>
-		<select id="getTotalCount" resultType="int">
+	
+	<select id="getTotalCount" resultType="int">
 		SELECT 
 			COUNT(BOARD_IDX)
 		FROM 
@@ -245,8 +214,8 @@
 			f.FILE_ORIGINAL_NAME
 		FROM
 			sample_board_tb b inner join sample_file_tb f on b.FILE_IDX = f.FILE_IDX
-		WHERE file_idx = ${fileIdx}
-		
+		WHERE
+			file_idx = ${fileIdx}
 	</select>
 	
 	<select id="selectFileInfo" parameterType="int" resultType="map">
@@ -256,6 +225,20 @@
 			sample_file_tb
 		WHERE 
 			file_idx = ${fileIdx}
+	</select>
+	
+	<select id="memberList" resultType="MemberDTO">
+		SELECT
+			*
+		FROM
+			sample_writer_tb
+		WHERE 
+			BOARD_WRITER_IDX > 0
+		<include refid="searchCondition"></include>	
+		ORDER BY
+			BOARD_WRITER_IDX DESC
+		LIMIT
+			#{pageStart}, #{perPageNum}
 	</select>
 	
 	<!-- 데이터 검색 -->

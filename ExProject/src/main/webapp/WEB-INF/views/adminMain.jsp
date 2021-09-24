@@ -97,9 +97,7 @@ function setPrePageNumSelect(){
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form">
-					<c:if test="${user_id ne null }">
-						<div>${user_id} 님 어서오세요 <a href="/sam/logout" class="btn btn-default" style="float:right; margin-top: -15px;">로그아웃</a></div>
-					</c:if>
+					<div><h1>안녕하세요. 관리자님 <a href="/sam/logout" class="btn btn-default" style="float:right; margin-top: 0px;">로그아웃</a></h1></div>
 					<div class="row panel-row">
 						<div class="col-sm-3">
 							<div class="overview-div">
@@ -132,11 +130,8 @@ function setPrePageNumSelect(){
 					</div>
 					<div class="row">
 						<div class="col-sm-4">
-							<button type="button" class="btn btn-default" onclick="location.href='write'">
-								<i class="fas fa-plus"></i> 새글 추가
-							</button>
-							<button type="button" class="btn btn-default" onclick="location.href='chat'">채팅하기</button>
-							<button type="button" class="btn btn-default" onclick="location.href='modify'">정보수정</button>
+							<button type="button" class="btn btn-default" onclick="location.href='/sam/deleteBoard'">선택삭제	</button>
+							<button type="button" class="btn btn-default" onclick="location.href='/sam/adminMember'">회원관리</button>
 						</div>
 						<div class="col-sm-2"></div>
 						<div class="col-sm-2">
@@ -160,40 +155,25 @@ function setPrePageNumSelect(){
 							<table class="table table-hover">
 								<thead>
 									<tr>
+										<th style="width: 5%"><input type="checkbox"/></th>
 										<th style="width: 5%;">순번</th>
-										<th style="width: 10%;">작성자</th>
+										<th style="width: 9%;">작성자</th>
 										<th style="width: 5%;">공개</th>
-										<th style="width: 35%:">제목</th>
-										<th style="width: 40%;">작성일자</th>
-										<th style="width: 5%;">조회수</th>
+										<th>제목</th>
+										<th style="width: 10%;">작성일자</th>
+										<th style="width: 10%;">삭제</th>
 									</tr>
 								</thead>
 								<tbody>
 								<c:forEach items="${list}" var="list" varStatus="status">
 								<tr>
+									<td><input type="checkbox"/>
 									<td>${status.count}</td>
 									<td>${list.boardWriter}</td>
-									<c:if test="${list.boardPublicFl eq 'N'}">
-										<td><i class="fas fa-lock"></i></td>
-										<c:choose>
-											<c:when test="${user_id eq list.boardWriter}">
-													<td>${list.boardTitle}</td>
-													<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.boardWriteDate}"/></td>
-													<td>${list.boardViewCount}</td>
-											</c:when>
-											<c:otherwise>
-												<td>비공개 글 입니다.</td>												
-												<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.boardWriteDate}"/></td>
-												<td>${list.boardViewCount}</td>
-											</c:otherwise>
-										</c:choose>
-									</c:if>
-									<c:if test="${list.boardPublicFl eq 'Y'}">
-										<td><i class="fas fa-lock-open"></i></td>
-										<td>${list.boardTitle}</td>
-										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.boardWriteDate}"/></td>
-										<td>${list.boardViewCount}</td>
-									</c:if>
+									<td><i class="fas fa-lock-open"></i></td>
+									<td>${list.boardTitle}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${list.boardWriteDate}"/></td>
+									<td><button class="btn btn-default btn-full">삭제</button></td>
 								</tr>
 								</c:forEach>
 								</tbody>

@@ -170,6 +170,7 @@ public class MemberController {
 		return "/login";
 	}
 	
+	//관리자 로그인
 	@RequestMapping(value= "/adminLogin", method = RequestMethod.GET)
 	public String adminLogin() throws Exception{
 		return "/adminLogin";
@@ -178,24 +179,41 @@ public class MemberController {
 	//관리자 로그인
 	@RequestMapping(value= "/adminLogin", method = RequestMethod.POST)
 	public void adminLoginAction(Model model, HttpServletRequest request, HttpServletResponse response, AdminDTO dto) throws Exception{
-		response.setCharacterEncoding("text/html charset=\"UTF_8\"");
+		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
-		int result = 0;// 관리자 로그인 서비스
+		int result = memberService.adminLogin(dto); // 관리자 로그인 서비스
+	
 		
 		String body="";
 			
 			if(result == 1) {
 				body ="<script>"
-						+"location.href='/sam/adminBoard'"
+						+"location.href='/sam/adminMain'"
 						+"</script>";
 				out.print(body);
-				session.setAttribute("user_id", dto);
-			} 
-		
-
-				
-		
+				session.setAttribute("admin_id", dto);
+			} else if(result ==2) {	//아이디는 같음
+				body ="<script>"
+						+"alert('비밀번호를 확인해 주세요');"
+						+"location.href='/sam/adminLogin'"
+						+"</script>";
+				out.print(body);				
+			} else {
+				body ="<script>"
+						+"alert('아이디를 확인해 주세요');"
+						+"location.href='/sam/adminLogin'"
+						+"</script>";
+				out.print(body);
+			}
 	}
-	
+
+	//관리자 - 회원추방
+	@RequestMapping(value="/adminDelete", method=RequestMethod.GET)
+	public String getAdminDelete(HttpSession session) throws Exception{
+		MemberDTO dto = new MemberDTO();
+		memberService.adminDelete(dto);
+		
+		return "/adminMember";
+	}
 }

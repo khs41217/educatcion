@@ -1,15 +1,15 @@
 package com.itkey.sam.member.dao;
 
-import java.util.Map;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itkey.sam.admin.dto.AdminDTO;
 import com.itkey.sam.file.dto.FileDTO;
 import com.itkey.sam.member.dto.MemberDTO;
+import com.itkey.sam.util.Criteria;
 
 @Repository("memberDAO")
 public class MemberDAOImpl implements MemberDAO {
@@ -73,7 +73,24 @@ public class MemberDAOImpl implements MemberDAO {
 			e.printStackTrace();
 		}
 		return result;
-
 	}
+	
+	public AdminDTO adminLogin(AdminDTO dto) throws Exception{
+		AdminDTO eDTO = sqlSession.selectOne("adminLogin", dto) ;
+		return eDTO;
+	}
+
+	@Override
+	public int adminLoginCheck(AdminDTO dto) throws Exception {
+		int result = sqlSession.selectOne("adminLoginCheck", dto);
+		return result;
+	}
+
+	@Override
+	public void adminDelete(MemberDTO dto) throws Exception {
+		sqlSession.delete("memberDelete", dto);
+	}
+
+
 
 }

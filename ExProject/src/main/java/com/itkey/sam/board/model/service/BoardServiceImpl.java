@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.board.model.dao.BoardDAO;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.util.Criteria;
 
 @Service("boardService")
@@ -162,7 +163,10 @@ public class BoardServiceImpl implements BoardService {
 	public FileDTO getFileName(int fileIdx) throws Exception {
 		return dao.getFileName(fileIdx);
 	}
-
+	
+	public List<MemberDTO> memberList(Criteria cri) throws Exception {
+		return dao.memberList(cri);
+	}
 //	@Override
 //	public List<Map<String, Object>> selectFileInfo(int fileIdx) throws Exception {
 //		// TODO Auto-generated method stub

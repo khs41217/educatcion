@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itkey.sam.board.dto.BoardDTO;
 import com.itkey.sam.file.dto.FileDTO;
+import com.itkey.sam.member.dto.MemberDTO;
 import com.itkey.sam.util.Criteria;
 
 @Repository("boardDAO")
@@ -145,10 +146,13 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public FileDTO getFileName(int fileIdx) throws Exception {
-		
 		return sqlSession.selectOne("getFileName", fileIdx);
 	}
 
+	@Override
+	public List<MemberDTO> memberList(Criteria cri) throws Exception {
+		return sqlSession.selectList("memberList", cri);
+	}
 	
 	//첨부파일 다운로드
 //	@Override

@@ -11,6 +11,25 @@
 		SELECT BOARD_WRITER_PW FROM sample_writer_tb where BOARD_WRITER = #{boardWriter}
 	</select>
 	
+	<select id='adminLogin' parameterType="AdminDTO" resultType="AdminDTO" >
+		SELECT * FROM sample_admin_tb where ADMIN_ID = #{adminId}
+	</select>
+	
+	<select id="adminLoginCheck" parameterType="AdminDTO" resultType="integer">
+		SELECT
+			COUNT(*)
+		FROM 
+			sample_admin_tb
+		WHERE ADMIN_ID = #{adminId}
+	</select>
+	<delete id="adminDelete">
+		DELETE
+		FROM
+			sample_writer_tb
+		WHERE
+			BOARD_WRITER = #{boardWriter}
+	</delete>
+	
 	<select id="getMember" parameterType="String" resultType="MemberDTO">
  		SELECT * FROM sample_writer_tb where BOARD_WRITER = #{boardWriter}
  	</select>
@@ -73,4 +92,14 @@
 		WHERE 
 			BOARD_WRITER = #{boardWriter}
 	</update>
+	<!-- 
+	<delete id="adminDelete">
+		DELETE
+		FROM
+			sample_writer_tb
+		WHERE
+			BOARD_WRITER = #{boardWriter}
+	</delete>
+	 -->
+	
 </mapper>
